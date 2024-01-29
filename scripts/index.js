@@ -9,6 +9,15 @@
 // @todo: Вывести карточки на страницу
 const cardTemplate = document.querySelector('#card-template').content;
 const placesList = document.querySelector('.places__list');
+const profileSection = document.querySelector('.profile.page__section');
+const addButton = profileSection.querySelector('.profile__add-button');
+
+addButton.addEventListener('click', function(){
+  const popupNewCard = document.querySelector('.popup.popup_type_new-card');
+  popupNewCard.classList.add('popup_is-opened');
+
+});
+
 //подумать над тем, можно ли так оставить или всё-таки написать другое решение
 initialCards.forEach(function(item){ 
   const cardElement = cardTemplate.querySelector('.places__item.card').cloneNode(true);
