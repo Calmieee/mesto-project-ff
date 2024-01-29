@@ -8,6 +8,12 @@
 
 // @todo: Вывести карточки на страницу
 const cardTemplate = document.querySelector('#card-template').content;
-const cardImage = cardTemplate.querySelector('.card__image');
-const cardTitle = cardTemplate.querySelector('card__title');
+const placesList = document.querySelector('.places__list');
+
+initialCards.forEach(function(item){
+  const cardElement = cardTemplate.querySelector('.places__item.card').cloneNode(true);
+  cardElement.querySelector('.card__image').src = item.link;
+  cardElement.querySelector('.card__title').textContent = item.name;
+  return placesList.append(cardElement);
+});
 
