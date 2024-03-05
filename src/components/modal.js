@@ -1,9 +1,31 @@
-function openModal(popup) {
-    popup.classList.add('popup_is-opened');
-}
+import {popupEdit, popupAddSong, popupOpenImage, imgInPopup} from '../index.js';
+
+function openModal(section) {
+    section.addEventListener('click', (evt) => {
+        switch (true) {
+            case evt.target.classList.contains('profile__edit-button'):
+                popupEdit.classList.add('popup_is-opened');
+                break
+            case evt.target.classList.contains('profile__add-button'):
+                popupAddSong.classList.add('popup_is-opened');
+                break
+            case evt.target.classList.contains('card__image'): 
+                popupOpenImage.classList.add('popup_is-opened');         
+                imgInPopup.src = evt.target.src;
+                imgInPopup.alt = evt.target.alt;
+                break        
+        };
+    });
+};
 
 function closeModal(popup) {
-    popup.classList.add('popup_is-animated');
-    popup.classList.remove('popup_is-opened');
-}
-export {openModal, closeModal}
+    popup.forEach((item) => {
+        item.addEventListener('click', (evt) => {
+            if (evt.target.classList.contains('popup__close') || evt.target.classList.contains('popup')) {
+                item.classList.remove('popup_is-opened');
+            }
+        });
+    });
+};
+
+export {openModal, closeModal};
