@@ -1,4 +1,4 @@
-import {popupEdit, popupAddSong, popupOpenImage, imgInPopup} from '../index.js';
+import {popupEdit, popupAddSong, popupOpenImage, imgInPopup, namePlace} from '../index.js';
 
 function openModal(section) {
     section.addEventListener('click', (evt) => {
@@ -13,6 +13,7 @@ function openModal(section) {
                 popupOpenImage.classList.add('popup_is-opened');         
                 imgInPopup.src = evt.target.src;
                 imgInPopup.alt = evt.target.alt;
+                namePlace.textContent = imgInPopup.alt.split(" ― ").pop();
                 break        
         };
     });

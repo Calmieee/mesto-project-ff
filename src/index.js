@@ -10,6 +10,7 @@ const popupEdit = document.querySelector('.popup.popup_type_edit');
 const popupAddSong = document.querySelector('.popup.popup_type_new-card');
 const popupOpenImage = document.querySelector('.popup.popup_type_image');
 const imgInPopup = popupOpenImage.querySelector('.popup__image');
+const namePlace = popupOpenImage.querySelector('.popup__caption');
 const popup = document.querySelectorAll('.popup');
 
 function renderCard(newCard) {
@@ -29,4 +30,4 @@ openModal(profile);
 openModal(placesList);
 closeModal(popup);
 
-export {cardTemplate, popupEdit, popupAddSong, popupOpenImage, imgInPopup};
+export {cardTemplate, popupEdit, popupAddSong, popupOpenImage, imgInPopup, namePlace};
