@@ -9,8 +9,6 @@ function closeWithEscape(evt) {
     };
 }
 
-
-
 function openModal(section) {
     section.addEventListener('click', (evt) => {
         switch (true) {

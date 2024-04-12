@@ -30,4 +30,4 @@ openModal(profile);
 openModal(placesList);
 closeModal(popup);
 
-export {cardTemplate, popupEdit, popupAddSong, popupOpenImage, imgInPopup, namePlace, popup};
+export {cardTemplate, popupEdit, popupAddSong, popupOpenImage, imgInPopup, namePlace, popup, profile};
