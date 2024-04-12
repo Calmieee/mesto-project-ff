@@ -1,4 +1,5 @@
-import {nameInput, profileTitle, profileDescription, jobInput, popupEdit} from '../index.js';
+import {nameInput, profileTitle, profileDescription, jobInput, popupEdit, nameInputPlace, linkInput, renderCard, popupAddCard} from '../index.js';
+import { initialCards } from './cards.js';
 
 
 export function handleFormEditSubmit(evt) {
@@ -8,8 +9,12 @@ export function handleFormEditSubmit(evt) {
     popupEdit.classList.remove('popup_is-opened');
 }
 
-// function handleFormAddPlaceSubmit(evt) {
-//     evt.preventDefault();
-
-// }
+export function handleFormAddPlaceSubmit(evt) {
+    evt.preventDefault();
+    const card = {name: nameInputPlace.value, link: linkInput.value};
+    renderCard(card);
+    popupAddCard.classList.remove('popup_is-opened');
+    nameInputPlace.value = null;
+    linkInput.value = null;
+}
 

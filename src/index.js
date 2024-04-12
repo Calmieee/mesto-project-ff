@@ -1,7 +1,7 @@
 import './pages/index.css';
 import {initialCards, createCard, deleteCard} from './components/cards.js'
 import { openModal, closeModal } from './components/modal.js';
-import { handleFormSubmit } from './components/form.js';
+import { handleFormEditSubmit, handleFormAddPlaceSubmit } from './components/form.js';
 
 const cardTemplate = document.querySelector('#card-template').content;
 const placesList = document.querySelector('.places__list');
@@ -18,6 +18,8 @@ const formEdit = popupEdit.querySelector('.popup__form');
 const nameInput = formEdit.querySelector('.popup__input.popup__input_type_name');
 const jobInput = formEdit.querySelector('.popup__input.popup__input_type_description');
 const formAddCard = popupAddCard.querySelector('.popup__form');
+const nameInputPlace = formAddCard.querySelector('.popup__input.popup__input_type_card-name');
+const linkInput = formAddCard.querySelector('.popup__input.popup__input_type_url');
 nameInput.value = profileTitle.textContent;
 jobInput.value = profileDescription.textContent;
 
@@ -38,5 +40,5 @@ openModal(profile);
 openModal(placesList);
 closeModal(popup);
 formEdit.addEventListener('submit', handleFormEditSubmit);
-
-export {cardTemplate, popupEdit, popupAddCard, popupOpenImage, imgInPopup, namePlace, popup, formEdit, nameInput, jobInput, profileTitle, profileDescription};
+formAddCard.addEventListener('submit', handleFormAddPlaceSubmit);
+export {cardTemplate, popupEdit, popupAddCard, popupOpenImage, imgInPopup, namePlace, popup, formEdit, nameInput, jobInput, profileTitle, profileDescription, nameInputPlace, linkInput, renderCard};
