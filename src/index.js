@@ -7,7 +7,7 @@ const cardTemplate = document.querySelector('#card-template').content;
 const placesList = document.querySelector('.places__list');
 const profile = document.querySelector('.profile.page__section');
 const popupEdit = document.querySelector('.popup.popup_type_edit');
-const popupAddPlace = document.querySelector('.popup.popup_type_new-card');
+const popupAddCard = document.querySelector('.popup.popup_type_new-card');
 const popupOpenImage = document.querySelector('.popup.popup_type_image');
 const imgInPopup = popupOpenImage.querySelector('.popup__image');
 const namePlace = popupOpenImage.querySelector('.popup__caption');
@@ -17,10 +17,9 @@ const profileDescription = profile.querySelector('.profile__description');
 const formEdit = popupEdit.querySelector('.popup__form');
 const nameInput = formEdit.querySelector('.popup__input.popup__input_type_name');
 const jobInput = formEdit.querySelector('.popup__input.popup__input_type_description');
-const formAddPlace = popupAddPlace.querySelector('.popup__form');
+const formAddCard = popupAddCard.querySelector('.popup__form');
 nameInput.value = profileTitle.textContent;
 jobInput.value = profileDescription.textContent;
-
 
 function renderCard(newCard) {
   const result = createCard(newCard, deleteCard);
@@ -40,4 +39,4 @@ openModal(placesList);
 closeModal(popup);
 formEdit.addEventListener('submit', handleFormEditSubmit);
 
-export {cardTemplate, popupEdit, popupAddPlace, popupOpenImage, imgInPopup, namePlace, popup, formEdit, nameInput, jobInput, profileTitle, profileDescription};
+export {cardTemplate, popupEdit, popupAddCard, popupOpenImage, imgInPopup, namePlace, popup, formEdit, nameInput, jobInput, profileTitle, profileDescription};

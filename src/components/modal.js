@@ -1,4 +1,4 @@
-import {popupEdit, popupAddPlace, popupOpenImage, imgInPopup, namePlace, popup} from '../index.js';
+import {popupEdit, popupAddCard, popupOpenImage, imgInPopup, namePlace, popup} from '../index.js';
 
 function closeWithEscape(evt) {
     if (evt.key === 'Escape') {
@@ -17,7 +17,7 @@ function openModal(section) {
                 document.addEventListener('keydown', closeWithEscape);
                 break
             case evt.target.classList.contains('profile__add-button'):
-                popupAddPlace.classList.add('popup_is-opened');
+                popupAddCard.classList.add('popup_is-opened');
                 document.addEventListener('keydown', closeWithEscape);
                 break
             case evt.target.classList.contains('card__image'): 
