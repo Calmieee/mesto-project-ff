@@ -1,7 +1,7 @@
 import './pages/index.css';
 import {initialCards, createCard, deleteCard} from './components/cards.js'
 import { openModal, closeModal } from './components/modal.js';
-
+import { handleFormSubmit } from './components/form.js';
 
 const cardTemplate = document.querySelector('#card-template').content;
 const placesList = document.querySelector('.places__list');
@@ -12,6 +12,13 @@ const popupOpenImage = document.querySelector('.popup.popup_type_image');
 const imgInPopup = popupOpenImage.querySelector('.popup__image');
 const namePlace = popupOpenImage.querySelector('.popup__caption');
 const popup = document.querySelectorAll('.popup');
+const profileTitle = profile.querySelector('.profile__title');
+const profileDescription = profile.querySelector('.profile__description');
+const formEdit = popupEdit.querySelector('.popup__form');
+const nameInput = formEdit.querySelector('.popup__input.popup__input_type_name');
+const jobInput = formEdit.querySelector('.popup__input.popup__input_type_description');
+nameInput.value = profileTitle.textContent;
+jobInput.value = profileDescription.textContent;
 
 function renderCard(newCard) {
   const result = createCard(newCard, deleteCard);
@@ -29,5 +36,6 @@ popup.forEach( (item) => {
 openModal(profile);
 openModal(placesList);
 closeModal(popup);
+formEdit.addEventListener('submit', handleFormSubmit);
 
-export {cardTemplate, popupEdit, popupAddSong, popupOpenImage, imgInPopup, namePlace, popup, profile};
+export {cardTemplate, popupEdit, popupAddSong, popupOpenImage, imgInPopup, namePlace, popup, formEdit, nameInput, jobInput, profileTitle, profileDescription};

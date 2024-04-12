@@ -29,7 +29,7 @@ function openModal(section) {
                 break        
         };
     });
-};
+}
 
 function closeModal(popup) {
     popup.forEach((item) => {
@@ -39,6 +39,6 @@ function closeModal(popup) {
             }
         });
     });
-};
+}
 
 export {openModal, closeModal};
