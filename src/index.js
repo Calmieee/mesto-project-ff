@@ -41,4 +41,5 @@ openModal(placesList);
 closeModal(popup);
 formEdit.addEventListener('submit', handleFormEditSubmit);
 formAddCard.addEventListener('submit', handleFormAddPlaceSubmit);
+
 export {cardTemplate, popupEdit, popupAddCard, popupOpenImage, imgInPopup, namePlace, popup, formEdit, nameInput, jobInput, profileTitle, profileDescription, nameInputPlace, linkInput, renderCard};

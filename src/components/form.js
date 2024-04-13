@@ -16,5 +16,5 @@ function handleFormAddPlaceSubmit(evt) {
     linkInput.value = null;
 }
 
-export { handleFormAddPlaceSubmit, handleFormEditSubmit}
+export { handleFormAddPlaceSubmit, handleFormEditSubmit};
 
