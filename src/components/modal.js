@@ -11,25 +11,26 @@ function closeWithEscape(evt) {
 
 function openModal(section) {
     section.addEventListener('click', (evt) => {
-        switch (true) {
-            case evt.target.classList.contains('profile__edit-button'):
-                popupEdit.classList.add('popup_is-opened');
-                document.addEventListener('keydown', closeWithEscape);
-                break
-            case evt.target.classList.contains('profile__add-button'):
-                popupAddCard.classList.add('popup_is-opened');
-                document.addEventListener('keydown', closeWithEscape);
-                break
-            case evt.target.classList.contains('card__image'): 
-                popupOpenImage.classList.add('popup_is-opened');         
-                imgInPopup.src = evt.target.src;
-                imgInPopup.alt = evt.target.alt;
-                namePlace.textContent = imgInPopup.alt.split(" ― ").pop();
-                document.addEventListener('keydown', closeWithEscape);
-                break        
-        };
+        if (evt.target.classList.contains('profile__edit-button')) {
+            popupEdit.classList.add('popup_is-opened');
+            document.addEventListener('keydown', closeWithEscape);
+        }
+        if (evt.target.classList.contains('profile__add-button')) {
+            popupAddCard.classList.add('popup_is-opened');
+            document.addEventListener('keydown', closeWithEscape);
+        }                                         
     });
 }
+
+function openModalImg(sectionImg) {
+    sectionImg.addEventListener('click', () => {
+        popupOpenImage.classList.add('popup_is-opened');         
+        imgInPopup.src = sectionImg.src;
+        imgInPopup.alt = sectionImg.alt;
+        namePlace.textContent = imgInPopup.alt.split(" ― ").pop();
+        document.addEventListener('keydown', closeWithEscape);
+    });
+}    
 
 function closeModal(popup) {
     popup.forEach((item) => {
@@ -41,4 +42,4 @@ function closeModal(popup) {
     });
 }
 
-export {openModal, closeModal};
+export {openModal, closeModal, openModalImg};

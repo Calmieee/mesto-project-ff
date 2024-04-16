@@ -1,7 +1,7 @@
 import './pages/index.css';
 import {initialCards, createCard, deleteCard, likeCard} from './components/cards.js'
-import { openModal, closeModal } from './components/modal.js';
-import { handleFormEditSubmit, handleFormAddPlaceSubmit } from './components/form.js';
+import { openModal, closeModal, openModalImg} from './components/modal.js';
+import { handleFormEditSubmit, handleFormAddPlaceSubmit} from './components/form.js';
 
 const cardTemplate = document.querySelector('#card-template').content;
 const placesList = document.querySelector('.places__list');
@@ -24,7 +24,7 @@ nameInput.value = profileTitle.textContent;
 jobInput.value = profileDescription.textContent;
 
 function renderCard(newCard) {
-  const result = createCard(newCard, deleteCard, likeCard);
+  const result = createCard(newCard, deleteCard, likeCard, openModalImg);
   placesList.prepend(result);
 }
 
@@ -37,7 +37,6 @@ popup.forEach( (item) => {
 });
 
 openModal(profile);
-openModal(placesList);
 closeModal(popup);
 formEdit.addEventListener('submit', handleFormEditSubmit);
 formAddCard.addEventListener('submit', handleFormAddPlaceSubmit);

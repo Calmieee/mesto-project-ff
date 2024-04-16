@@ -1,4 +1,5 @@
-import {cardTemplate} from '../index.js';
+import {cardTemplate, imgInPopup} from '../index.js';
+
 
 const initialCards = [
     {
@@ -27,13 +28,13 @@ const initialCards = [
     }
 ];
 
-function createCard(cardData, deleteCallback, likeCallbak) {
+function createCard(cardData, deleteCallback, likeCallbak, openImg) {
   const cardElement = cardTemplate.querySelector('.places__item.card').cloneNode(true);
   const deleteButtonIcon = cardElement.querySelector('.card__delete-button');
   const LikeButton = cardElement.querySelector('.card__like-button');
-
-  cardElement.querySelector('.card__image').src = cardData.link;
-  cardElement.querySelector('.card__image').alt = `Это пейзаж из места со следующим названием ― ${cardData.name}`;
+  const cardImage = cardElement.querySelector('.card__image');
+  cardImage.src = cardData.link;
+  cardImage.alt = `Это пейзаж из места со следующим названием ― ${cardData.name}`;
   cardElement.querySelector('.card__title').textContent = cardData.name;
 
   deleteButtonIcon.addEventListener('click', () => {
@@ -43,6 +44,7 @@ function createCard(cardData, deleteCallback, likeCallbak) {
   LikeButton.addEventListener('click', () => {
     likeCallbak(LikeButton);
   })
+  openImg(cardImage);
   return cardElement;
 }
 
