@@ -1,4 +1,4 @@
-import {cardTemplate, imgInPopup} from '../index.js';
+import {cardTemplate} from '../index.js';
 
 
 const initialCards = [
@@ -43,7 +43,7 @@ function createCard(cardData, deleteCallback, likeCallbak, openImg) {
 
   LikeButton.addEventListener('click', () => {
     likeCallbak(LikeButton);
-  })
+  });
   openImg(cardImage);
   return cardElement;
 }
@@ -56,9 +56,9 @@ function deleteCard(deleteButton) {
 function likeCard(element) {
   if (element.classList.contains('card__like-button_is-active')) {
     element.classList.remove('card__like-button_is-active');
-  }else {
+  } else {
     element.classList.add('card__like-button_is-active');
-  }
+  };
 }
 
 export {initialCards, createCard, deleteCard, likeCard};

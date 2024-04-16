@@ -14,11 +14,11 @@ function openModal(section) {
         if (evt.target.classList.contains('profile__edit-button')) {
             popupEdit.classList.add('popup_is-opened');
             document.addEventListener('keydown', closeWithEscape);
-        }
+        };
         if (evt.target.classList.contains('profile__add-button')) {
             popupAddCard.classList.add('popup_is-opened');
             document.addEventListener('keydown', closeWithEscape);
-        }                                         
+        };                                    
     });
 }
 
@@ -37,7 +37,7 @@ function closeModal(popup) {
         item.addEventListener('click', (evt) => {
             if (evt.target.classList.contains('popup__close') || evt.target.classList.contains('popup')) {
                 item.classList.remove('popup_is-opened');
-            }
+            };
         });
     });
 }
