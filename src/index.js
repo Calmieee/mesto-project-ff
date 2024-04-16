@@ -1,5 +1,5 @@
 import './pages/index.css';
-import {initialCards, createCard, deleteCard} from './components/cards.js'
+import {initialCards, createCard, deleteCard, likeCard} from './components/cards.js'
 import { openModal, closeModal } from './components/modal.js';
 import { handleFormEditSubmit, handleFormAddPlaceSubmit } from './components/form.js';
 
@@ -24,7 +24,7 @@ nameInput.value = profileTitle.textContent;
 jobInput.value = profileDescription.textContent;
 
 function renderCard(newCard) {
-  const result = createCard(newCard, deleteCard);
+  const result = createCard(newCard, deleteCard, likeCard);
   placesList.prepend(result);
 }
 

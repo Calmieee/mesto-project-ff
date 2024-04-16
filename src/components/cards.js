@@ -27,17 +27,22 @@ const initialCards = [
     }
 ];
 
-function createCard(cardData, deleteCallback) {
+function createCard(cardData, deleteCallback, likeCallbak) {
   const cardElement = cardTemplate.querySelector('.places__item.card').cloneNode(true);
   const deleteButtonIcon = cardElement.querySelector('.card__delete-button');
- 
+  const LikeButton = cardElement.querySelector('.card__like-button');
+
   cardElement.querySelector('.card__image').src = cardData.link;
   cardElement.querySelector('.card__image').alt = `Это пейзаж из места со следующим названием ― ${cardData.name}`;
   cardElement.querySelector('.card__title').textContent = cardData.name;
 
-  deleteButtonIcon.addEventListener('click', function() {
+  deleteButtonIcon.addEventListener('click', () => {
     deleteCallback(deleteButtonIcon);
   });
+
+  LikeButton.addEventListener('click', () => {
+    likeCallbak(LikeButton);
+  })
   return cardElement;
 }
 
@@ -46,6 +51,14 @@ function deleteCard(deleteButton) {
   listItem.remove();
 }
 
-export {initialCards, createCard, deleteCard};
+function likeCard(element) {
+  if (element.classList.contains('card__like-button_is-active')) {
+    element.classList.remove('card__like-button_is-active');
+  }else {
+    element.classList.add('card__like-button_is-active');
+  }
+}
+
+export {initialCards, createCard, deleteCard, likeCard};
 
 
