@@ -1,4 +1,7 @@
-import {cardTemplate} from '../index.js';
+import { openModalImg } from "./modal";
+
+const cardTemplate = document.querySelector('#card-template').content;
+const placesList = document.querySelector('.places__list');
 
 function createCard(cardData, deleteCallback, likeCallbak, openImg) {
   const cardElement = cardTemplate.querySelector('.places__item.card').cloneNode(true);
@@ -20,6 +23,11 @@ function createCard(cardData, deleteCallback, likeCallbak, openImg) {
   return cardElement;
 }
 
+function renderCard(newCard) {
+  const result = createCard(newCard, deleteCard, likeCard, openModalImg);
+  placesList.prepend(result);
+}
+
 function deleteCard(deleteButton) {
   const listItem = deleteButton.closest('.places__item.card');
   listItem.remove();
@@ -33,6 +41,6 @@ function likeCard(element) {
   };
 }
 
-export {createCard, deleteCard, likeCard};
+export {createCard, deleteCard, likeCard, renderCard};
 
 

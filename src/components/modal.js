@@ -1,8 +1,13 @@
-import {popupEdit, popupAddCard, popupOpenImage, imgInPopup, namePlace, popup} from '../index.js';
+const popups = document.querySelectorAll('.popup');
+const popupOpenImage = document.querySelector('.popup.popup_type_image');
+const namePlace = popupOpenImage.querySelector('.popup__caption');
+const imgInPopup = popupOpenImage.querySelector('.popup__image');
+const popupEdit = document.querySelector('.popup.popup_type_edit');
+const popupAddCard = document.querySelector('.popup.popup_type_new-card');
 
 function closeWithEscape(evt) {
     if (evt.key === 'Escape') {
-       popup.forEach((item) => {
+       popups.forEach((item) => {
         item.classList.remove('popup_is-opened');
         document.removeEventListener('keydown', closeWithEscape);
        });
@@ -32,7 +37,11 @@ function openModalImg(sectionImg) {
     });
 }    
 
-function closeModal(popup) {
+function closePopup(popup) {
+    popup.classList.remove('popup_is-opened');
+}
+
+function setCloseModalHandlers(popup) {
     popup.forEach((item) => {
         item.addEventListener('click', (evt) => {
             if (evt.target.classList.contains('popup__close') || evt.target.classList.contains('popup')) {
@@ -42,4 +51,4 @@ function closeModal(popup) {
     });
 }
 
-export {openModal, closeModal, openModalImg};
+export {openModal, setCloseModalHandlers, openModalImg, closePopup, popupEdit, popupAddCard, popups};
