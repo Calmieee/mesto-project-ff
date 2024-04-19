@@ -4,10 +4,10 @@ import { closePopup, popupEdit, popupAddCard} from './modal.js';
 const profile = document.querySelector('.profile.page__section');
 const profileTitle = profile.querySelector('.profile__title');
 const profileDescription = profile.querySelector('.profile__description');
-const formEdit = popupEdit.querySelector('.popup__form');
+const formEdit = document.forms['edit-profile'];
 const nameInput = formEdit.querySelector('.popup__input.popup__input_type_name');
 const jobInput = formEdit.querySelector('.popup__input.popup__input_type_description');
-const formAddCard = popupAddCard.querySelector('.popup__form');
+const formAddCard = document.forms['new-place'];
 const nameInputPlace = formAddCard.querySelector('.popup__input.popup__input_type_card-name');
 const linkInput = formAddCard.querySelector('.popup__input.popup__input_type_url');
 
