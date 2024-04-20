@@ -6,7 +6,6 @@ function closeWithEscape(evt) {
     if (evt.key === 'Escape') {
        popups.forEach((item) => {
         closePopup(item);
-        console.log(evt.key);
        });
     };
 }
