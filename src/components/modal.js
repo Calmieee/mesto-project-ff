@@ -14,17 +14,9 @@ function closeWithEscape(evt) {
     };
 }
 
-function openModal(section) {
-    section.addEventListener('click', (evt) => {
-        if (evt.target.classList.contains('profile__edit-button')) {
-            popupEdit.classList.add('popup_is-opened');
-            document.addEventListener('keydown', closeWithEscape);
-        };
-        if (evt.target.classList.contains('profile__add-button')) {
-            popupAddCard.classList.add('popup_is-opened');
-            document.addEventListener('keydown', closeWithEscape);
-        };                                    
-    });
+function openPopup(popup) {
+    popup.classList.add('popup_is-opened');
+    document.addEventListener('keydown', closeWithEscape);
 }
 
 function openModalImg(sectionImg) {
@@ -54,4 +46,4 @@ function setCloseModalHandlers(popups) {
     });
 }
 
-export {openModal, setCloseModalHandlers, openModalImg, closePopup, popupEdit, popupAddCard, popups};
+export {openPopup, setCloseModalHandlers, openModalImg, closePopup, popupEdit, popupAddCard, popups};
