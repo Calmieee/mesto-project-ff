@@ -9,7 +9,7 @@ function closeWithEscape(evt) {
     if (evt.key === 'Escape') {
        popups.forEach((item) => {
         item.classList.remove('popup_is-opened');
-        document.removeEventListener('keydown', closeWithEscape);
+        
        });
     };
 }
@@ -39,10 +39,13 @@ function openModalImg(sectionImg) {
 
 function closePopup(popup) {
     popup.classList.remove('popup_is-opened');
+    document.removeEventListener('keydown', closeWithEscape);
 }
 
-function setCloseModalHandlers(popup) {
-    popup.forEach((item) => {
+closePopup(popupOpenImage);
+
+function setCloseModalHandlers(popups) {
+    popups.forEach((item) => {
         item.addEventListener('click', (evt) => {
             if (evt.target.classList.contains('popup__close') || evt.target.classList.contains('popup')) {
                 item.classList.remove('popup_is-opened');

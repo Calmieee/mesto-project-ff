@@ -2,7 +2,7 @@ import './pages/index.css';
 import {renderCard} from './components/cards';
 import { initialCards } from './components/initialCards.js';
 import { openModal, setCloseModalHandlers, popups} from './components/modal.js';
-import { handleFormEditSubmit, handleFormAddPlaceSubmit, profile, formEdit, formAddCard, nameInput, jobInput, profileTitle, profileDescription} from './components/form.js';
+import { handleFormEditSubmit, handleFormAddPlaceSubmit, profile, formEdit, formAddCard, nameInput, jobInput, profileTitle} from './components/form.js';
 
 const editButton = profile.querySelector('.profile__edit-button');
 

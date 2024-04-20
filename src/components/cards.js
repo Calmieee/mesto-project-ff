@@ -34,11 +34,7 @@ function deleteCard(deleteButton) {
 }
 
 function likeCard(element) {
-  if (element.classList.contains('card__like-button_is-active')) {
-    element.classList.remove('card__like-button_is-active');
-  } else {
-    element.classList.add('card__like-button_is-active');
-  };
+  element.classList.toggle("card__like-button_is-active");
 }
 
 export {createCard, deleteCard, likeCard, renderCard};
