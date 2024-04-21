@@ -17,9 +17,21 @@ const jobInput = formEdit.querySelector('.popup__input.popup__input_type_descrip
 const formAddCard = document.forms['new-place'];
 const nameInputPlace = formAddCard.querySelector('.popup__input.popup__input_type_card-name');
 const linkInput = formAddCard.querySelector('.popup__input.popup__input_type_url');
+const popupOpenImage = document.querySelector('.popup.popup_type_image');
+const imgInPopup = popupOpenImage.querySelector('.popup__image');
+const namePlace = popupOpenImage.querySelector('.popup__caption');
+
+function openImg(sectionImg) {
+  sectionImg.addEventListener('click', () => {         
+    imgInPopup.src = sectionImg.src;
+    imgInPopup.alt = sectionImg.alt;
+    namePlace.textContent = imgInPopup.alt.split(" ― ").pop();
+    openPopup(popupOpenImage);
+});
+}
 
 function renderCard(newCard) {
-  const result = createCard(newCard, deleteCard, likeCard);
+  const result = createCard(newCard, deleteCard, likeCard, openImg);
   placesList.prepend(result);
 }
 
