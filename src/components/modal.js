@@ -1,6 +1,4 @@
 const popups = document.querySelectorAll('.popup');
-const popupEdit = document.querySelector('.popup.popup_type_edit');
-const popupAddCard = document.querySelector('.popup.popup_type_new-card');
 
 function closeWithEscape(evt) {
     if (evt.key === 'Escape') {
@@ -30,4 +28,4 @@ function setCloseModalHandlers(popups) {
     });
 }
 
-export {openPopup, setCloseModalHandlers, closePopup, popupEdit, popupAddCard, popups};
+export {openPopup, setCloseModalHandlers, closePopup, popups};

@@ -6,6 +6,8 @@ import {renderCard} from './components/cards.js';
 
 const editButton = profile.querySelector('.profile__edit-button');
 const addPlaceButton = profile.querySelector('.profile__add-button');
+const popupEdit = document.querySelector('.popup.popup_type_edit');
+const popupAddCard = document.querySelector('.popup.popup_type_new-card');
 
 initialCards.forEach((item) => {  
   renderCard(item);
