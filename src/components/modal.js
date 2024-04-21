@@ -2,9 +2,7 @@ const popups = document.querySelectorAll('.popup');
 
 function closeWithEscape(evt) {
     if (evt.key === 'Escape') {
-       popups.forEach((item) => {
-        closePopup(item);
-       });
+       popups.forEach(closePopup);
     };
 }
 
