@@ -20,6 +20,11 @@ const linkInput = formAddCard.querySelector('.popup__input.popup__input_type_url
 const popupOpenImage = document.querySelector('.popup.popup_type_image');
 const imgInPopup = popupOpenImage.querySelector('.popup__image');
 const namePlace = popupOpenImage.querySelector('.popup__caption');
+const callbacks = {
+  deleteCallback: deleteCard,
+  likeCallback: likeCard,
+  openImgCallbak: openImg
+}
 
 function openImg(sectionImg) {
   sectionImg.addEventListener('click', () => {         
@@ -27,11 +32,11 @@ function openImg(sectionImg) {
     imgInPopup.alt = sectionImg.alt;
     namePlace.textContent = imgInPopup.alt.split(" ― ").pop();
     openPopup(popupOpenImage);
-});
+  });
 }
 
 function renderCard(newCard, method = "prepend") {
-  const result = createCard(newCard, deleteCard, likeCard, openImg);
+  const result = createCard(newCard, callbacks);
   placesList[method](result);
 }
 
