@@ -1,7 +1,6 @@
 import {openPopup} from "./modal.js";
 
 const cardTemplate = document.querySelector('#card-template').content;
-const placesList = document.querySelector('.places__list');
 const popupOpenImage = document.querySelector('.popup.popup_type_image');
 const namePlace = popupOpenImage.querySelector('.popup__caption');
 const imgInPopup = popupOpenImage.querySelector('.popup__image');
@@ -33,11 +32,6 @@ function createCard(cardData, deleteCallback, likeCallbak) {
   return cardElement;
 }
 
-function renderCard(newCard) {
-  const result = createCard(newCard, deleteCard, likeCard);
-  placesList.prepend(result);
-}
-
 function deleteCard(deleteButton) {
   const listItem = deleteButton.closest('.places__item.card');
   listItem.remove();
@@ -47,6 +41,6 @@ function likeCard(element) {
   element.classList.toggle("card__like-button_is-active");
 }
 
-export {createCard, deleteCard, likeCard, renderCard};
+export {createCard, deleteCard, likeCard};
 
 
