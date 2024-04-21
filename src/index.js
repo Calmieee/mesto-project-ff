@@ -30,9 +30,9 @@ function openImg(sectionImg) {
 });
 }
 
-function renderCard(newCard) {
+function renderCard(newCard, method = "prepend") {
   const result = createCard(newCard, deleteCard, likeCard, openImg);
-  placesList.prepend(result);
+  placesList[method](result);
 }
 
 function handleFormEditSubmit(evt) {
