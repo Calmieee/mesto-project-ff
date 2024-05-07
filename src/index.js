@@ -8,6 +8,7 @@ const placesList = document.querySelector('.places__list');
 const popupEdit = document.querySelector('.popup.popup_type_edit');
 const popupAddCard = document.querySelector('.popup.popup_type_new-card');
 const profile = document.querySelector('.profile.page__section');
+const profileImage = profile.querySelector('.profile__image');
 const editButton = profile.querySelector('.profile__edit-button');
 const addPlaceButton = profile.querySelector('.profile__add-button');
 const profileTitle = profile.querySelector('.profile__title');
@@ -90,4 +91,24 @@ addPlaceButton.addEventListener('click', () => {
 
 formEdit.addEventListener('submit', handleFormEditSubmit);
 formAddCard.addEventListener('submit', handleFormAddPlaceSubmit);
+
+
+// URL - https://nomoreparties.co/v1/cohort-magistr-2/
+
+fetch('https://nomoreparties.co/v1/cohort-magistr-2/users/me', {
+  headers: {
+    authorization: '1873c1c3-e0d3-46cb-8071-4941cc4e909d'
+  }
+})
+
+.then( (res) => {
+  return res.json();
+})
+.then( (response) => {
+  profileTitle.textContent = response.name;
+  profileImage.src = response.avatar;
+  profileDescription.textContent = response.about;
+  console.log(response);
+})
+
 
