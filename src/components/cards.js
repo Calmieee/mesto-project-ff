@@ -10,11 +10,14 @@ function createCard(cardData, callbacks) {
   cardImage.alt = `Это пейзаж из места со следующим названием ― ${cardData.name}`;
   cardElement.querySelector('.card__title').textContent = cardData.name;
   cardElementLikeCounter.textContent = cardData.likes.length;
+  if (cardData.owner['_id'] !== 'bd93af4bf4950e32576412f9') {
+    deleteButtonIcon.classList.add('card__delete-button-hidden');
+  } else {
+    deleteButtonIcon.addEventListener('click', () => {
+      callbacks.deleteCallback(deleteButtonIcon);
+    });
+  }
   
-  deleteButtonIcon.addEventListener('click', () => {
-    callbacks.deleteCallback(deleteButtonIcon);
-  });
-
   LikeButton.addEventListener('click', () => {
     callbacks.likeCallback(LikeButton);
   });
