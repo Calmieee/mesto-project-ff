@@ -22,7 +22,7 @@ function checkInputValidity(inputElement, formElement, config) {
     } else {
         showError(inputElement, errorElement, config)
     }
-    console.log(errorElement);
+    
 }
 
 const hasInvalidInput = (inputList) => {

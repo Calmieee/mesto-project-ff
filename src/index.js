@@ -2,12 +2,12 @@ import './pages/index.css';
 import { setCloseModalHandlers, popups, openPopup, closePopup } from './components/modal.js';
 import { createCard, deleteCard, likeCard } from './components/cards.js';
 import {enableValidation, clearValidation} from './components/validation.js';
+import {fetchMethodGet} from './components/api.js'
 
 const placesList = document.querySelector('.places__list');
 const popupEdit = document.querySelector('.popup.popup_type_edit');
 const popupAddCard = document.querySelector('.popup.popup_type_new-card');
 const profile = document.querySelector('.profile.page__section');
-const profileImage = profile.querySelector('.profile__image');
 const editButton = profile.querySelector('.profile__edit-button');
 const addPlaceButton = profile.querySelector('.profile__add-button');
 const profileTitle = profile.querySelector('.profile__title');
@@ -87,30 +87,6 @@ addPlaceButton.addEventListener('click', () => {
 formEdit.addEventListener('submit', handleFormEditSubmit);
 formAddCard.addEventListener('submit', handleFormAddPlaceSubmit);
 
-
-// URL - https://nomoreparties.co/v1/cohort-magistr-2/
-
-function fetchMethodGet(patch) {
-  return fetch(`https://nomoreparties.co/v1/cohort-magistr-2/${patch}`, {
-    headers: {
-      authorization: '1873c1c3-e0d3-46cb-8071-4941cc4e909d'
-    }
-  })
-}
-
-Promise.all([fetchMethodGet('users/me'), fetchMethodGet('cards')])
-  .then(([res1,  res2]) => {
-    return Promise.all([res1.json(), res2.json()]);
-  })
-  .then(([responseForUser, responseforInitCards]) => {
-    profileTitle.textContent = responseForUser.name;
-    profileImage.src = responseForUser.avatar;
-    profileDescription.textContent = responseForUser.about;
-
-    responseforInitCards.forEach((card) => {
-      renderCard(card);
-    })
-  })
 
 
 
