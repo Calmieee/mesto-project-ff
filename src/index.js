@@ -2,6 +2,7 @@ import './pages/index.css';
 import { initialCards } from './components/initialCards.js';
 import { setCloseModalHandlers, popups, openPopup, closePopup } from './components/modal.js';
 import { createCard, deleteCard, likeCard } from './components/cards.js';
+import {enableValidation} from './components/validation.js';
 
 const placesList = document.querySelector('.places__list');
 const popupEdit = document.querySelector('.popup.popup_type_edit');
@@ -20,11 +21,20 @@ const linkInput = formAddCard.querySelector('.popup__input.popup__input_type_url
 const popupOpenImage = document.querySelector('.popup.popup_type_image');
 const imgInPopup = popupOpenImage.querySelector('.popup__image');
 const namePlace = popupOpenImage.querySelector('.popup__caption');
+
 const callbacks = {
   deleteCallback: deleteCard,
   likeCallback: likeCard,
   openImgCallbak: openImg
-}
+};
+
+const configForm = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__button",
+  inactiveButtonClass: "popup__button_inactive",
+  inputErrorClass: "popup__input_state_invalid",
+};
 
 function openImg(sectionImg) {
   sectionImg.addEventListener('click', () => {         
@@ -64,6 +74,7 @@ popups.forEach( (item) => {
 });
 
 setCloseModalHandlers(popups);
+enableValidation(configForm);
 
 editButton.addEventListener('click', () => {
   nameInput.value = profileTitle.textContent;

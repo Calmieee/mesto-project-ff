@@ -10,7 +10,7 @@
   margin-bottom: 10px;
 }
 
-.popup__input:invalid {
+.popup__input_state_invalid {
   border-bottom-color: #F00;
 }
 
