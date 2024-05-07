@@ -1,25 +1,40 @@
 import { token } from '../token/token.js';
 
-function fetchMethodGet(patch) {
+function fetchResponseMethodGet(patch) {
     return fetch(`https://nomoreparties.co/v1/cohort-magistr-2/${patch}`, {
       headers: {
         authorization: token
       }
     })
   }
-  
-//   Promise.all([fetchMethodGet('users/me'), fetchMethodGet('cards')])
-//     .then(([res1,  res2]) => {
-//       return Promise.all([res1.json(), res2.json()]);
-//     })
-//     .then(([responseForUser, responseforInitCards]) => {
-//       profileTitle.textContent = responseForUser.name;
-//       profileImage.src = responseForUser.avatar;
-//       profileDescription.textContent = responseForUser.about;
-  
-//       responseforInitCards.forEach((card) => {
-//         renderCard(card);
-//       })
-//     })
 
-export {fetchMethodGet}
+function updateProfileData(inputs) {
+  return fetch('https://nomoreparties.co/v1/cohort-magistr-2/users/me', {
+    method: 'PATCH',
+    headers: {
+      authorization: token,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: inputs.nameInput,
+      about: inputs.aboutInput
+    })
+  })
+  .then(res => res.json())
+}
+
+function addNewCard(inputs){
+  return fetch('https://nomoreparties.co/v1/cohort-magistr-2/cards', {
+    method: 'POST',
+    headers: {
+      authorization: token,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: inputs.namePlaceInput,
+      link: inputs.linkInput
+    })
+  })
+  .then(res => res.json())
+}
+export {fetchResponseMethodGet, updateProfileData, addNewCard}

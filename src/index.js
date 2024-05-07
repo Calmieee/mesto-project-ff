@@ -2,12 +2,13 @@ import './pages/index.css';
 import { setCloseModalHandlers, popups, openPopup, closePopup } from './components/modal.js';
 import { createCard, deleteCard, likeCard } from './components/cards.js';
 import {enableValidation, clearValidation} from './components/validation.js';
-import {fetchMethodGet} from './components/api.js'
+import {fetchResponseMethodGet, updateProfileData, addNewCard} from './components/api.js'
 
 const placesList = document.querySelector('.places__list');
 const popupEdit = document.querySelector('.popup.popup_type_edit');
 const popupAddCard = document.querySelector('.popup.popup_type_new-card');
 const profile = document.querySelector('.profile.page__section');
+const profileImage = profile.querySelector('.profile__image')
 const editButton = profile.querySelector('.profile__edit-button');
 const addPlaceButton = profile.querySelector('.profile__add-button');
 const profileTitle = profile.querySelector('.profile__title');
@@ -45,22 +46,33 @@ function openImg(sectionImg) {
   });
 }
 
-function renderCard(newCard, method = "prepend") {
+function renderCard(newCard, method = 'prepend') {
   const result = createCard(newCard, callbacks);
   placesList[method](result);
 }
 
 function handleFormEditSubmit(evt) {
   evt.preventDefault();
-  profileTitle.textContent = nameInput.value;
-  profileDescription.textContent = jobInput.value;
+  updateProfileData({
+    nameInput: nameInput.value,
+    aboutInput: jobInput.value
+  })
+    .then((response) => {
+      profileTitle.textContent = response.name;
+      profileDescription.textContent = response.about;
+    })
   closePopup(popupEdit);
 }
 
 function handleFormAddPlaceSubmit(evt) {
   evt.preventDefault();
-  const card = {name: nameInputPlace.value, link: linkInput.value};
-  renderCard(card);
+  addNewCard({
+    namePlaceInput: nameInputPlace.value,
+    linkInput:  linkInput.value
+  })
+  .then((response) => {
+    renderCard(response)
+  })
   closePopup(popupAddCard);
   evt.target.reset();
   clearValidation(formAddCard,configForm);
@@ -87,7 +99,19 @@ addPlaceButton.addEventListener('click', () => {
 formEdit.addEventListener('submit', handleFormEditSubmit);
 formAddCard.addEventListener('submit', handleFormAddPlaceSubmit);
 
+Promise.all([fetchResponseMethodGet('users/me'), fetchResponseMethodGet('cards')])
+  .then(([res1,  res2]) => {
+    return Promise.all([res1.json(), res2.json()]);
+  })
+  .then(([responseForUser, responseforInitCards]) => {
+    profileTitle.textContent = responseForUser.name;
+    profileImage.src = responseForUser.avatar;
+    profileDescription.textContent = responseForUser.about;
 
+    responseforInitCards.forEach((card) => {
+      renderCard(card);
+    })
+  })
 
 
 
