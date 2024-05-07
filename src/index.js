@@ -110,7 +110,6 @@ Promise.all([fetchResponseMethodGet('users/me'), fetchResponseMethodGet('cards')
 
     responseforInitCards.forEach((card) => {
       renderCard(card);
-      console.log(card.owner['_id']);
     })
   })
 

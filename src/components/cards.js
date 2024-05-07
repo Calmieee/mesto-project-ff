@@ -1,3 +1,5 @@
+import { deleteCardInServer } from "./api.js";
+
 const cardTemplate = document.querySelector('#card-template').content;
 
 function createCard(cardData, callbacks) {
@@ -10,11 +12,14 @@ function createCard(cardData, callbacks) {
   cardImage.alt = `Это пейзаж из места со следующим названием ― ${cardData.name}`;
   cardElement.querySelector('.card__title').textContent = cardData.name;
   cardElementLikeCounter.textContent = cardData.likes.length;
+
   if (cardData.owner['_id'] !== 'bd93af4bf4950e32576412f9') {
     deleteButtonIcon.classList.add('card__delete-button-hidden');
   } else {
-    deleteButtonIcon.addEventListener('click', () => {
-      callbacks.deleteCallback(deleteButtonIcon);
+    deleteButtonIcon.addEventListener('click', (evt) => {
+      console.log(evt.target);
+      console.log(cardData['_id']);
+      callbacks.deleteCallback(deleteButtonIcon, cardData['_id']);
     });
   }
   
@@ -25,7 +30,8 @@ function createCard(cardData, callbacks) {
   return cardElement;
 }
 
-function deleteCard(deleteButton) {
+function deleteCard(deleteButton, cardId) {
+  deleteCardInServer(cardId);
   const listItem = deleteButton.closest('.places__item.card');
   listItem.remove();
 }

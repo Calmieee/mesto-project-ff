@@ -37,4 +37,15 @@ function addNewCard(inputs){
   })
   .then(res => res.json())
 }
-export {fetchResponseMethodGet, updateProfileData, addNewCard}
+
+function deleteCardInServer(cardId) {
+  return fetch(`https://nomoreparties.co/v1/cohort-magistr-2/cards/${cardId}`,{
+    method: 'DELETE',
+    headers: {
+      authorization: token,
+    }
+  })
+}
+
+
+export {fetchResponseMethodGet, updateProfileData, addNewCard, deleteCardInServer}
