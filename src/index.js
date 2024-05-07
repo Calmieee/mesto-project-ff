@@ -1,5 +1,4 @@
 import './pages/index.css';
-import { initialCards } from './components/initialCards.js';
 import { setCloseModalHandlers, popups, openPopup, closePopup } from './components/modal.js';
 import { createCard, deleteCard, likeCard } from './components/cards.js';
 import {enableValidation, clearValidation} from './components/validation.js';
@@ -67,10 +66,6 @@ function handleFormAddPlaceSubmit(evt) {
   clearValidation(formAddCard,configForm);
 }
 
-initialCards.forEach((item) => {  
-  renderCard(item);
-});
-
 popups.forEach( (item) => {
   item.classList.add('popup_is-animated');
 });
@@ -95,20 +90,31 @@ formAddCard.addEventListener('submit', handleFormAddPlaceSubmit);
 
 // URL - https://nomoreparties.co/v1/cohort-magistr-2/
 
-fetch('https://nomoreparties.co/v1/cohort-magistr-2/users/me', {
-  headers: {
-    authorization: '1873c1c3-e0d3-46cb-8071-4941cc4e909d'
-  }
-})
+function fetchMethodGet(patch) {
+  return fetch(`https://nomoreparties.co/v1/cohort-magistr-2/${patch}`, {
+    headers: {
+      authorization: '1873c1c3-e0d3-46cb-8071-4941cc4e909d'
+    }
+  })
+}
 
-.then( (res) => {
-  return res.json();
-})
-.then( (response) => {
-  profileTitle.textContent = response.name;
-  profileImage.src = response.avatar;
-  profileDescription.textContent = response.about;
-  console.log(response);
-})
+Promise.all([fetchMethodGet('users/me'), fetchMethodGet('cards')])
+  .then(([res1,  res2]) => {
+    return Promise.all([res1.json(), res2.json()]);
+  })
+  .then(([responseForUser, responseforInitCards]) => {
+    profileTitle.textContent = responseForUser.name;
+    profileImage.src = responseForUser.avatar;
+    profileDescription.textContent = responseForUser.about;
+
+    responseforInitCards.forEach((card) => {
+      renderCard(card);
+    })
+  })
+
+
+
+
+
 
 
