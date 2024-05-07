@@ -11,12 +11,17 @@ function hideError(inputElement, errorElement, config) {
 function checkInputValidity(inputElement, formElement, config) {
     const isInputValid = inputElement.validity.valid;
     const errorElement = formElement.querySelector(`#${inputElement.name}-error`);
+    if (inputElement.validity.patternMismatch) {
+        inputElement.setCustomValidity(inputElement.dataset.errorMessage);
+    } else {
+        inputElement.setCustomValidity("");
+    }
+
     if(isInputValid) {
         hideError(inputElement, errorElement, config)
     } else {
         showError(inputElement, errorElement, config)
     }
-
     console.log(errorElement);
 }
 
@@ -47,7 +52,6 @@ function setEvenetListener(formElement, config) {
     })
 }
 
-
 export function enableValidation(config) {
     const formsList = document.querySelectorAll(config.formSelector);
     [...formsList].forEach(function(formElement){
@@ -55,14 +59,5 @@ export function enableValidation(config) {
     })
 }
 
-
-
-  const configNewPlaceForm = {
-    formSelector: ".form-new",
-    inputSelector: ".form__input",
-    submitButtonSelector: ".form__button",
-    inactiveButtonClass: "popup__button_inactive",
-    inputErrorClass: "popup__input_state_invalid",
-  };
 
 
