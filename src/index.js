@@ -2,7 +2,7 @@ import './pages/index.css';
 import { initialCards } from './components/initialCards.js';
 import { setCloseModalHandlers, popups, openPopup, closePopup } from './components/modal.js';
 import { createCard, deleteCard, likeCard } from './components/cards.js';
-import {enableValidation} from './components/validation.js';
+import {enableValidation, clearValidation} from './components/validation.js';
 
 const placesList = document.querySelector('.places__list');
 const popupEdit = document.querySelector('.popup.popup_type_edit');
@@ -63,6 +63,7 @@ function handleFormAddPlaceSubmit(evt) {
   renderCard(card);
   closePopup(popupAddCard);
   evt.target.reset();
+  clearValidation(formAddCard,configForm);
 }
 
 initialCards.forEach((item) => {  
@@ -79,6 +80,7 @@ enableValidation(configForm);
 editButton.addEventListener('click', () => {
   nameInput.value = profileTitle.textContent;
   jobInput.value = profileDescription.textContent;
+  clearValidation(formEdit, configForm);
   openPopup(popupEdit);
 });
 
