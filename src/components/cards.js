@@ -5,11 +5,12 @@ function createCard(cardData, callbacks) {
   const deleteButtonIcon = cardElement.querySelector('.card__delete-button');
   const LikeButton = cardElement.querySelector('.card__like-button');
   const cardImage = cardElement.querySelector('.card__image');
-
+  const cardElementLikeCounter = cardElement.querySelector('.card__like-counter');
   cardImage.src = cardData.link;
   cardImage.alt = `Это пейзаж из места со следующим названием ― ${cardData.name}`;
   cardElement.querySelector('.card__title').textContent = cardData.name;
-
+  cardElementLikeCounter.textContent = cardData.likes.length;
+  
   deleteButtonIcon.addEventListener('click', () => {
     callbacks.deleteCallback(deleteButtonIcon);
   });
