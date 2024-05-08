@@ -42,10 +42,23 @@ function deleteCardInServer(cardId) {
   return fetch(`https://nomoreparties.co/v1/cohort-magistr-2/cards/${cardId}`,{
     method: 'DELETE',
     headers: {
-      authorization: token,
+      authorization: token
     }
   })
 }
 
+function toggleLikeCardStateInServer(cardId, method, cardElementLikeCounter) {
+  return fetch(`https://nomoreparties.co/v1/cohort-magistr-2/cards/likes/${cardId}`, {
+    method: method,
+    headers: {
+      authorization: token
+    }
+  })
+  .then(res => res.json())
+  .then((response) => {
+    cardElementLikeCounter.textContent = response.likes.length;
+  })
+}
 
-export {fetchResponseMethodGet, updateProfileData, addNewCard, deleteCardInServer}
+
+export {fetchResponseMethodGet, updateProfileData, addNewCard, deleteCardInServer, toggleLikeCardStateInServer}

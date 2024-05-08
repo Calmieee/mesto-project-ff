@@ -1,6 +1,7 @@
-import { deleteCardInServer } from "./api.js";
+import { deleteCardInServer, toggleLikeCardStateInServer } from "./api.js";
 
 const cardTemplate = document.querySelector('#card-template').content;
+const myId = 'bd93af4bf4950e32576412f9';
 
 function createCard(cardData, callbacks) {
   const cardElement = cardTemplate.querySelector('.places__item.card').cloneNode(true);
@@ -13,18 +14,22 @@ function createCard(cardData, callbacks) {
   cardElement.querySelector('.card__title').textContent = cardData.name;
   cardElementLikeCounter.textContent = cardData.likes.length;
 
-  if (cardData.owner['_id'] !== 'bd93af4bf4950e32576412f9') {
+  cardData.likes.forEach( (item) => {
+    if(myId === item['_id']) {
+      LikeButton.classList.add('card__like-button_is-active');
+    }
+  });
+  
+  if (cardData.owner['_id'] !== myId) {
     deleteButtonIcon.classList.add('card__delete-button-hidden');
   } else {
     deleteButtonIcon.addEventListener('click', (evt) => {
-      console.log(evt.target);
-      console.log(cardData['_id']);
       callbacks.deleteCallback(deleteButtonIcon, cardData['_id']);
     });
   }
-  
+
   LikeButton.addEventListener('click', () => {
-    callbacks.likeCallback(LikeButton);
+    callbacks.likeCallback(LikeButton, cardData['_id'], cardElementLikeCounter);
   });
   callbacks.openImgCallbak(cardImage);
   return cardElement;
@@ -36,10 +41,16 @@ function deleteCard(deleteButton, cardId) {
   listItem.remove();
 }
 
-function likeCard(element) {
-  element.classList.toggle("card__like-button_is-active");
+function toggleLikeCardState(element, cardId, cardElementLikeCounter) {
+  if (element.classList.toggle("card__like-button_is-active")) {
+    toggleLikeCardStateInServer(cardId, "PUT", cardElementLikeCounter);
+  } else {
+    toggleLikeCardStateInServer(cardId, "DELETE", cardElementLikeCounter);
+  }
 }
 
-export {createCard, deleteCard, likeCard};
+
+
+export {createCard, deleteCard, toggleLikeCardState};
 
 

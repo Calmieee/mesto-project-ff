@@ -1,6 +1,6 @@
 import './pages/index.css';
 import { setCloseModalHandlers, popups, openPopup, closePopup } from './components/modal.js';
-import { createCard, deleteCard, likeCard } from './components/cards.js';
+import { createCard, deleteCard, toggleLikeCardState } from './components/cards.js';
 import {enableValidation, clearValidation} from './components/validation.js';
 import {fetchResponseMethodGet, updateProfileData, addNewCard} from './components/api.js'
 
@@ -25,7 +25,7 @@ const namePlace = popupOpenImage.querySelector('.popup__caption');
 
 const callbacks = {
   deleteCallback: deleteCard,
-  likeCallback: likeCard,
+  likeCallback: toggleLikeCardState,
   openImgCallbak: openImg
 };
 
