@@ -107,6 +107,7 @@ Promise.all([fetchResponseMethodGet('users/me'), fetchResponseMethodGet('cards')
     profileTitle.textContent = responseForUser.name;
     profileImage.src = responseForUser.avatar;
     profileDescription.textContent = responseForUser.about;
+    
     responseforInitCards.forEach((card) => {
       renderCard(card, 'append');
     })
