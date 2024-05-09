@@ -2,13 +2,14 @@ import './pages/index.css';
 import { setCloseModalHandlers, popups, openPopup, closePopup } from './components/modal.js';
 import { createCard, deleteCard, toggleLikeCardState } from './components/cards.js';
 import {enableValidation, clearValidation} from './components/validation.js';
-import {fetchResponseMethodGet, updateProfileData, addNewCard} from './components/api.js'
+import {fetchResponseMethodGet, updateProfileData, addNewCard, changeAvatar} from './components/api.js'
 
 const placesList = document.querySelector('.places__list');
 const popupEdit = document.querySelector('.popup.popup_type_edit');
 const popupAddCard = document.querySelector('.popup.popup_type_new-card');
 const profile = document.querySelector('.profile.page__section');
-const profileImage = profile.querySelector('.profile__image')
+const profileImage = profile.querySelector('.profile__image');
+const editAvatarbutton = profile.querySelector('.profile__edit-avatar-button');
 const editButton = profile.querySelector('.profile__edit-button');
 const addPlaceButton = profile.querySelector('.profile__add-button');
 const profileTitle = profile.querySelector('.profile__title');
@@ -22,6 +23,9 @@ const linkInput = formAddCard.querySelector('.popup__input.popup__input_type_url
 const popupOpenImage = document.querySelector('.popup.popup_type_image');
 const imgInPopup = popupOpenImage.querySelector('.popup__image');
 const namePlace = popupOpenImage.querySelector('.popup__caption');
+const changeAvatarPopup = document.querySelector('.popup.popup_type_change-avatar');
+const changeAvatarForm = document.forms['change-avatar'];
+const changeAvatarInput = changeAvatarForm.querySelector('.popup__input.popup__input_type_url-avatar');
 
 const callbacks = {
   deleteCallback: deleteCard,
@@ -37,6 +41,20 @@ const configForm = {
   inputErrorClass: "popup__input_state_invalid",
 };
 
+Promise.all([fetchResponseMethodGet('users/me'), fetchResponseMethodGet('cards')])
+  .then(([res1,  res2]) => {
+    return Promise.all([res1.json(), res2.json()]);
+  })
+  .then(([responseForUser, responseforInitCards]) => {
+    profileTitle.textContent = responseForUser.name;
+    profileDescription.textContent = responseForUser.about;
+    profileImage.style.backgroundImage = `url('${responseForUser.avatar}')`;
+    
+    responseforInitCards.forEach((card) => {
+      renderCard(card, 'append');
+    })
+  })
+
 function openImg(sectionImg) {
   sectionImg.addEventListener('click', () => {         
     imgInPopup.src = sectionImg.src;
@@ -49,6 +67,12 @@ function openImg(sectionImg) {
 function renderCard(newCard, method = 'prepend') {
   const result = createCard(newCard, callbacks);
   placesList[method](result);
+}
+
+function handleFormChangeAvatarSubmit(evt) {
+  evt.preventDefault();
+  changeAvatar(changeAvatarInput.value, profileImage);
+  closePopup(changeAvatarPopup);
 }
 
 function handleFormEditSubmit(evt) {
@@ -96,23 +120,15 @@ addPlaceButton.addEventListener('click', () => {
   openPopup(popupAddCard);
 });
 
+editAvatarbutton.addEventListener('click', () => {
+  changeAvatarInput.value = profileImage.style.backgroundImage.slice(5, -2);
+  clearValidation(changeAvatarForm, configForm);
+  openPopup(changeAvatarPopup);
+})
+
 formEdit.addEventListener('submit', handleFormEditSubmit);
 formAddCard.addEventListener('submit', handleFormAddPlaceSubmit);
-
-Promise.all([fetchResponseMethodGet('users/me'), fetchResponseMethodGet('cards')])
-  .then(([res1,  res2]) => {
-    return Promise.all([res1.json(), res2.json()]);
-  })
-  .then(([responseForUser, responseforInitCards]) => {
-    profileTitle.textContent = responseForUser.name;
-    profileImage.src = responseForUser.avatar;
-    profileDescription.textContent = responseForUser.about;
-    
-    responseforInitCards.forEach((card) => {
-      renderCard(card, 'append');
-    })
-  })
-
+changeAvatarForm.addEventListener('submit', handleFormChangeAvatarSubmit);
 
 
 

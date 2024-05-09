@@ -16,7 +16,6 @@ function checkInputValidity(inputElement, formElement, config) {
     } else {
         inputElement.setCustomValidity("");
     }
-
     if(isInputValid) {
         hideError(inputElement, errorElement, config)
     } else {
