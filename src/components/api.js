@@ -60,5 +60,16 @@ function toggleLikeCardStateInServer(cardId, method, cardElementLikeCounter) {
   })
 }
 
+function changeAvatar(link) {
+  return fetch('https://nomoreparties.co/v1/cohort-magistr-2/users/me/avatar', {
+    method: 'PATCH',
+    headers: {
+      authorization: token
+    },
+    body: JSON.stringify({
+      avatar: link
+    })
+  })
+}
 
 export {fetchResponseMethodGet, updateProfileData, addNewCard, deleteCardInServer, toggleLikeCardStateInServer}
