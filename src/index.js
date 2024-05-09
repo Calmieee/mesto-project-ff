@@ -1,8 +1,8 @@
 import './pages/index.css';
 import { setCloseModalHandlers, popups, openPopup, closePopup } from './components/modal.js';
 import { createCard, deleteCard, toggleLikeCardState } from './components/cards.js';
-import {enableValidation, clearValidation} from './components/validation.js';
-import {fetchResponseMethodGet, updateProfileData, addNewCard, changeAvatar} from './components/api.js'
+import { enableValidation, clearValidation } from './components/validation.js';
+import { fetchResponseMethodGet, updateProfileData, addNewCard, changeAvatar, configApi } from './components/api.js'
 
 const placesList = document.querySelector('.places__list');
 const popupEdit = document.querySelector('.popup.popup_type_edit');
@@ -44,7 +44,7 @@ const configForm = {
   inputErrorClass: "popup__input_state_invalid",
 };
 
-Promise.all([fetchResponseMethodGet('users/me'), fetchResponseMethodGet('cards')])
+Promise.all([fetchResponseMethodGet(configApi, 'users/me'), fetchResponseMethodGet(configApi, 'cards')])
   .then(([res1,  res2]) => {
     return Promise.all([res1.json(), res2.json()]);
   })
@@ -83,9 +83,9 @@ function waitingSave(isLoading, FormSumbitButton) {
 function handleFormChangeAvatarSubmit(evt) {
   evt.preventDefault();
   waitingSave(true, submitChangeAvatarButton);
-  changeAvatar(changeAvatarInput.value, profileImage)
+  changeAvatar(configApi, changeAvatarInput.value, profileImage)
     .finally(() => {
-      waitingSave(true, submitChangeAvatarButton);
+      waitingSave(false, submitChangeAvatarButton);
     })
   closePopup(changeAvatarPopup);
 }
@@ -93,7 +93,7 @@ function handleFormChangeAvatarSubmit(evt) {
 function handleFormEditSubmit(evt) {
   evt.preventDefault();
   waitingSave(true, submitEditProfileButton);
-  updateProfileData({
+  updateProfileData(configApi, {
     nameInput: nameInput.value,
     aboutInput: jobInput.value
   })
@@ -110,7 +110,7 @@ function handleFormEditSubmit(evt) {
 function handleFormAddPlaceSubmit(evt) {
   waitingSave(true, submitAddPlaceButton);
   evt.preventDefault();
-  addNewCard({
+  addNewCard(configApi, {
     namePlaceInput: nameInputPlace.value,
     linkInput:  linkInput.value
   })
@@ -125,7 +125,7 @@ function handleFormAddPlaceSubmit(evt) {
   clearValidation(formAddCard,configForm);
 }
 
-popups.forEach( (item) => {
+popups.forEach((item) => {
   item.classList.add('popup_is-animated');
 });
 

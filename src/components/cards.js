@@ -1,4 +1,4 @@
-import { deleteCardInServer, toggleLikeCardStateInServer } from "./api.js";
+import { deleteCardInServer, toggleLikeCardStateInServer, configApi } from "./api.js";
 
 const cardTemplate = document.querySelector('#card-template').content;
 const myId = 'bd93af4bf4950e32576412f9';
@@ -36,16 +36,16 @@ function createCard(cardData, callbacks) {
 }
 
 function deleteCard(deleteButton, cardId) {
-  deleteCardInServer(cardId);
+  deleteCardInServer(configApi, cardId);
   const listItem = deleteButton.closest('.places__item.card');
   listItem.remove();
 }
 
 function toggleLikeCardState(element, cardId, cardElementLikeCounter) {
   if (element.classList.toggle("card__like-button_is-active")) {
-    toggleLikeCardStateInServer(cardId, "PUT", cardElementLikeCounter);
+    toggleLikeCardStateInServer(configApi, cardId, "PUT", cardElementLikeCounter);
   } else {
-    toggleLikeCardStateInServer(cardId, "DELETE", cardElementLikeCounter);
+    toggleLikeCardStateInServer(configApi, cardId, "DELETE", cardElementLikeCounter);
   }
 }
 

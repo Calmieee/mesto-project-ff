@@ -1,15 +1,21 @@
 import { token } from '../token/token.js';
 
-function fetchResponseMethodGet(patch) {
-    return fetch(`https://nomoreparties.co/v1/cohort-magistr-2/${patch}`, {
-      headers: {
-        authorization: token
-      }
+const configApi = {
+  baseUrl: 'https://nomoreparties.co/v1/cohort-magistr-2/',
+  headers: {
+    authorization: token,
+    'Content-Type': 'application/json'
+  }
+}
+
+function fetchResponseMethodGet(configApi, patch) {
+    return fetch(`${configApi.baseUrl}${patch}`, {
+      headers: configApi.headers
     })
   }
 
-function updateProfileData(inputs) {
-  return fetch('https://nomoreparties.co/v1/cohort-magistr-2/users/me', {
+function updateProfileData(configApi, inputs) {
+  return fetch(`${configApi.baseUrl}users/me`, {
     method: 'PATCH',
     headers: {
       authorization: token,
@@ -23,8 +29,8 @@ function updateProfileData(inputs) {
   .then(res => res.json())
 }
 
-function addNewCard(inputs){
-  return fetch('https://nomoreparties.co/v1/cohort-magistr-2/cards', {
+function addNewCard(configApi, inputs){
+  return fetch(`${configApi.baseUrl}cards`, {
     method: 'POST',
     headers: {
       authorization: token,
@@ -38,30 +44,32 @@ function addNewCard(inputs){
   .then(res => res.json())
 }
 
-function deleteCardInServer(cardId) {
-  return fetch(`https://nomoreparties.co/v1/cohort-magistr-2/cards/${cardId}`,{
+function deleteCardInServer(configApi, cardId) {
+  return fetch(`${configApi.baseUrl}cards/${cardId}`,{
     method: 'DELETE',
     headers: {
-      authorization: token
+      authorization: token,
+      'Content-Type': 'application/json'
     }
   })
 }
 
-function toggleLikeCardStateInServer(cardId, method, cardElementLikeCounter) {
-  return fetch(`https://nomoreparties.co/v1/cohort-magistr-2/cards/likes/${cardId}`, {
+function toggleLikeCardStateInServer(configApi, cardId, method, cardElementLikeCounter) {
+  return fetch(`${configApi.baseUrl}cards/likes/${cardId}`, {
     method: method,
     headers: {
-      authorization: token
+      authorization: token,
+      'Content-Type': 'application/json'
     }
   })
   .then(res => res.json())
   .then((response) => {
-    cardElementLikeCounter.textContent = response.likes.length;
+    console.log(response)
+     cardElementLikeCounter.textContent = response.likes.length;
   })
 }
-
-function changeAvatar(link, ProfileAvatarElement) {
-  return fetch('https://nomoreparties.co/v1/cohort-magistr-2/users/me/avatar', {
+function changeAvatar(configApi, link, ProfileAvatarElement) {
+  return fetch(`${configApi.baseUrl}users/me/avatar`, {
     method: 'PATCH',
     headers: {
       authorization: token,
@@ -79,4 +87,4 @@ function changeAvatar(link, ProfileAvatarElement) {
 }
 
 
-export {fetchResponseMethodGet, updateProfileData, addNewCard, deleteCardInServer, toggleLikeCardStateInServer, changeAvatar}
+export {fetchResponseMethodGet, updateProfileData, addNewCard, deleteCardInServer, toggleLikeCardStateInServer, changeAvatar, configApi}
