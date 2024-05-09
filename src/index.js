@@ -60,10 +60,10 @@ Promise.all([fetchResponseMethodGet(configApi, 'users/me'), fetchResponseMethodG
     responseforInitCards.forEach((card) => {
       renderCard(card, 'append');
     })
-    .catch(([err1, err2]) => {
-      console.log(err1 + err2);
-    });
   })
+  .catch(([err1, err2]) => {
+    console.log(err1 + err2);
+  });
 
 function openImg(sectionImg) {
   sectionImg.addEventListener('click', () => {         
