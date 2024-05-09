@@ -75,7 +75,6 @@ function changeAvatar(link, ProfileAvatarElement) {
   .then((response) => {
     console.log(response)
     ProfileAvatarElement.style.backgroundImage = `url('${response.avatar}')`;
-    
   })
 }
 

@@ -26,6 +26,9 @@ const namePlace = popupOpenImage.querySelector('.popup__caption');
 const changeAvatarPopup = document.querySelector('.popup.popup_type_change-avatar');
 const changeAvatarForm = document.forms['change-avatar'];
 const changeAvatarInput = changeAvatarForm.querySelector('.popup__input.popup__input_type_url-avatar');
+const submitEditProfileButton = formEdit.querySelector('.button.popup__button');
+const submitAddPlaceButton = formAddCard.querySelector('.button.popup__button');
+const submitChangeAvatarButton = changeAvatarForm.querySelector('.button.popup__button');
 
 const callbacks = {
   deleteCallback: deleteCard,
@@ -69,14 +72,27 @@ function renderCard(newCard, method = 'prepend') {
   placesList[method](result);
 }
 
+function waitingSave(isLoading, FormSumbitButton) {
+  if(isLoading) {
+    FormSumbitButton.textContent = 'Сохранение...';
+  } else {
+    FormSumbitButton.textContent = 'Сохранить';
+  }
+}
+
 function handleFormChangeAvatarSubmit(evt) {
   evt.preventDefault();
-  changeAvatar(changeAvatarInput.value, profileImage);
+  waitingSave(true, submitChangeAvatarButton);
+  changeAvatar(changeAvatarInput.value, profileImage)
+    .finally(() => {
+      waitingSave(true, submitChangeAvatarButton);
+    })
   closePopup(changeAvatarPopup);
 }
 
 function handleFormEditSubmit(evt) {
   evt.preventDefault();
+  waitingSave(true, submitEditProfileButton);
   updateProfileData({
     nameInput: nameInput.value,
     aboutInput: jobInput.value
@@ -85,18 +101,25 @@ function handleFormEditSubmit(evt) {
       profileTitle.textContent = response.name;
       profileDescription.textContent = response.about;
     })
+    .finally(() => {
+      waitingSave(false, submitEditProfileButton);
+    })
   closePopup(popupEdit);
 }
 
 function handleFormAddPlaceSubmit(evt) {
+  waitingSave(true, submitAddPlaceButton);
   evt.preventDefault();
   addNewCard({
     namePlaceInput: nameInputPlace.value,
     linkInput:  linkInput.value
   })
-  .then((response) => {
-    renderCard(response)
-  })
+    .then((response) => {
+      renderCard(response)
+    })
+    .finally(() => {
+      waitingSave(false, submitAddPlaceButton);
+    })
   closePopup(popupAddCard);
   evt.target.reset();
   clearValidation(formAddCard,configForm);
@@ -127,7 +150,9 @@ editAvatarbutton.addEventListener('click', () => {
 })
 
 formEdit.addEventListener('submit', handleFormEditSubmit);
+
 formAddCard.addEventListener('submit', handleFormAddPlaceSubmit);
+
 changeAvatarForm.addEventListener('submit', handleFormChangeAvatarSubmit);
 
 
