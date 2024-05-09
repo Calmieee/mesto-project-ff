@@ -17,10 +17,7 @@ function fetchResponseMethodGet(configApi, patch) {
 function updateProfileData(configApi, inputs) {
   return fetch(`${configApi.baseUrl}users/me`, {
     method: 'PATCH',
-    headers: {
-      authorization: token,
-      'Content-Type': 'application/json'
-    },
+    headers: configApi.headers,
     body: JSON.stringify({
       name: inputs.nameInput,
       about: inputs.aboutInput
@@ -32,10 +29,7 @@ function updateProfileData(configApi, inputs) {
 function addNewCard(configApi, inputs){
   return fetch(`${configApi.baseUrl}cards`, {
     method: 'POST',
-    headers: {
-      authorization: token,
-      'Content-Type': 'application/json'
-    },
+    headers: configApi.headers,
     body: JSON.stringify({
       name: inputs.namePlaceInput,
       link: inputs.linkInput
@@ -47,20 +41,14 @@ function addNewCard(configApi, inputs){
 function deleteCardInServer(configApi, cardId) {
   return fetch(`${configApi.baseUrl}cards/${cardId}`,{
     method: 'DELETE',
-    headers: {
-      authorization: token,
-      'Content-Type': 'application/json'
-    }
+    headers: configApi.headers
   })
 }
 
 function toggleLikeCardStateInServer(configApi, cardId, method, cardElementLikeCounter) {
   return fetch(`${configApi.baseUrl}cards/likes/${cardId}`, {
     method: method,
-    headers: {
-      authorization: token,
-      'Content-Type': 'application/json'
-    }
+    headers: configApi.headers
   })
   .then(res => res.json())
   .then((response) => {
@@ -71,10 +59,7 @@ function toggleLikeCardStateInServer(configApi, cardId, method, cardElementLikeC
 function changeAvatar(configApi, link, ProfileAvatarElement) {
   return fetch(`${configApi.baseUrl}users/me/avatar`, {
     method: 'PATCH',
-    headers: {
-      authorization: token,
-      'Content-Type': 'application/json'
-    },
+    headers: configApi.headers,
     body: JSON.stringify({
       avatar: link
     })
