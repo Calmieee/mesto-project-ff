@@ -46,7 +46,11 @@ const configForm = {
 
 Promise.all([fetchResponseMethodGet(configApi, 'users/me'), fetchResponseMethodGet(configApi, 'cards')])
   .then(([res1,  res2]) => {
-    return Promise.all([res1.json(), res2.json()]);
+    if (res1.ok && res2.ok) {     
+      return Promise.all([res1.json(), res2.json()]);
+    }
+
+    return Promise.reject(`Ошибка: ${res.status}`);
   })
   .then(([responseForUser, responseforInitCards]) => {
     profileTitle.textContent = responseForUser.name;
@@ -56,6 +60,9 @@ Promise.all([fetchResponseMethodGet(configApi, 'users/me'), fetchResponseMethodG
     responseforInitCards.forEach((card) => {
       renderCard(card, 'append');
     })
+    .catch(([err1, err2]) => {
+      console.log(err1 + err2);
+    });
   })
 
 function openImg(sectionImg) {
@@ -101,6 +108,9 @@ function handleFormEditSubmit(evt) {
       profileTitle.textContent = response.name;
       profileDescription.textContent = response.about;
     })
+    .catch((err) => {
+      console.log(err);
+    })
     .finally(() => {
       waitingSave(false, submitEditProfileButton);
     })
@@ -116,6 +126,9 @@ function handleFormAddPlaceSubmit(evt) {
   })
     .then((response) => {
       renderCard(response)
+    })
+    .catch((err) => {
+      console.log(err);
     })
     .finally(() => {
       waitingSave(false, submitAddPlaceButton);

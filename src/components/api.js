@@ -23,7 +23,12 @@ function updateProfileData(configApi, inputs) {
       about: inputs.aboutInput
     })
   })
-  .then(res => res.json())
+  .then((res) => {
+    if (res.ok) {
+      return res.json()
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
 }
 
 function addNewCard(configApi, inputs){
@@ -35,7 +40,12 @@ function addNewCard(configApi, inputs){
       link: inputs.linkInput
     })
   })
-  .then(res => res.json())
+  .then((res) => {
+    if (res.ok) {
+      return res.json()
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
 }
 
 function deleteCardInServer(configApi, cardId) {
@@ -50,11 +60,19 @@ function toggleLikeCardStateInServer(configApi, cardId, method, cardElementLikeC
     method: method,
     headers: configApi.headers
   })
-  .then(res => res.json())
+  .then((res) => {
+    if (res.ok) {
+      return res.json()
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
   .then((response) => {
     console.log(response)
      cardElementLikeCounter.textContent = response.likes.length;
   })
+  .catch((err) => {
+    console.log(err);
+  });
 }
 function changeAvatar(configApi, link, ProfileAvatarElement) {
   return fetch(`${configApi.baseUrl}users/me/avatar`, {
@@ -64,11 +82,19 @@ function changeAvatar(configApi, link, ProfileAvatarElement) {
       avatar: link
     })
   })
-  .then(res => res.json())
+  .then((res) => {
+    if (res.ok) {
+      return res.json()
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
   .then((response) => {
     console.log(response)
     ProfileAvatarElement.style.backgroundImage = `url('${response.avatar}')`;
   })
+  .catch((err) => {
+    console.log(err);
+  });
 }
 
 
