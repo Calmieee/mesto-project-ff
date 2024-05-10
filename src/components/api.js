@@ -48,11 +48,13 @@ function addNewCard(configApi, inputs){
   })
 }
 
-function deleteCardInServer(configApi, cardId) {
-  return fetch(`${configApi.baseUrl}cards/${cardId}`,{
-    method: 'DELETE',
-    headers: configApi.headers
-  })
+function deleteCardInServer(configApi, cardId, isValid) {
+  if (isValid) {
+    return fetch(`${configApi.baseUrl}cards/${cardId}`,{
+      method: 'DELETE',
+      headers: configApi.headers
+    })
+  }
 }
 
 function toggleLikeCardStateInServer(configApi, cardId, method, cardElementLikeCounter) {
