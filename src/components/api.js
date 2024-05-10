@@ -54,7 +54,17 @@ function deleteCardInServer(configApi, cardId, isValid) {
       method: 'DELETE',
       headers: configApi.headers
     })
+    .then((res) => {
+      if (res.ok) {
+        return res.json()
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
   }
+  
 }
 
 function toggleLikeCardStateInServer(configApi, cardId, method, cardElementLikeCounter) {
