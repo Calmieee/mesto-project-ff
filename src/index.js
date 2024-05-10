@@ -50,7 +50,7 @@ Promise.all([fetchResponseMethodGet(configApi, 'users/me'), fetchResponseMethodG
       return Promise.all([res1.json(), res2.json()]);
     }
 
-    return Promise.reject(`Ошибка: ${res.status}`);
+    return Promise.reject(`Ошибка: ${res1.status} и ${res2.status}`);
   })
   .then(([responseForUser, responseforInitCards]) => {
     profileTitle.textContent = responseForUser.name;
@@ -165,8 +165,4 @@ editAvatarbutton.addEventListener('click', () => {
 formEdit.addEventListener('submit', handleFormEditSubmit);
 formAddCard.addEventListener('submit', handleFormAddPlaceSubmit);
 changeAvatarForm.addEventListener('submit', handleFormChangeAvatarSubmit);
-
-
-
-
 

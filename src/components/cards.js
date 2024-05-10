@@ -1,8 +1,10 @@
 import { deleteCardInServer, toggleLikeCardStateInServer, configApi } from "./api.js";
+import { openPopup, closePopup } from "./modal.js";
 
 const cardTemplate = document.querySelector('#card-template').content;
 const myId = 'bd93af4bf4950e32576412f9';
-
+const submitPopup = document.querySelector('.popup.popup_type_submit-delete');
+const submitButton = submitPopup.querySelector('.button.popup__button');
 function createCard(cardData, callbacks) {
   const cardElement = cardTemplate.querySelector('.places__item.card').cloneNode(true);
   const deleteButtonIcon = cardElement.querySelector('.card__delete-button');
@@ -19,12 +21,22 @@ function createCard(cardData, callbacks) {
       LikeButton.classList.add('card__like-button_is-active');
     }
   });
-  
+
+  function listener(evt) {
+    if (evt.target === submitButton) {
+      const isValid = true;
+      callbacks.deleteCallback(deleteButtonIcon, cardData['_id'], isValid);
+      submitButton.removeEventListener('click', listener);
+      closePopup(submitPopup);
+    }
+  }
+
   if (cardData.owner['_id'] !== myId) {
     deleteButtonIcon.classList.add('card__delete-button-hidden');
   } else {
     deleteButtonIcon.addEventListener('click', () => {
-      callbacks.deleteCallback(deleteButtonIcon, cardData['_id']);
+      openPopup(submitPopup);
+      submitButton.addEventListener('click', listener);
     });
   }
 
@@ -35,8 +47,8 @@ function createCard(cardData, callbacks) {
   return cardElement;
 }
 
-function deleteCard(deleteButton, cardId) {
-  deleteCardInServer(configApi, cardId);
+function deleteCard(deleteButton, cardId, isValid) {
+  deleteCardInServer(configApi, cardId, isValid);
   const listItem = deleteButton.closest('.places__item.card');
   listItem.remove();
 }
