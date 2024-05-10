@@ -163,9 +163,7 @@ editAvatarbutton.addEventListener('click', () => {
 })
 
 formEdit.addEventListener('submit', handleFormEditSubmit);
-
 formAddCard.addEventListener('submit', handleFormAddPlaceSubmit);
-
 changeAvatarForm.addEventListener('submit', handleFormChangeAvatarSubmit);
 
 
