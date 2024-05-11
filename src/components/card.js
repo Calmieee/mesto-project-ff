@@ -22,10 +22,7 @@ function createCard(cardData, callbacks, userId) {
   if (cardData.owner['_id'] !== userId) {
     deleteButtonIcon.classList.add('card__delete-button-hidden');
   } else {
-    deleteButtonIcon.addEventListener('click', () => {
-      openPopup(submitPopup);
-      submitButton.addEventListener('click', listener);
-    });
+    addListener(deleteButtonIcon);
   }
 
   likeButton.addEventListener('click', () => {

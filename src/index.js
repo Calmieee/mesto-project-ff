@@ -29,12 +29,14 @@ const changeAvatarInput = changeAvatarForm.querySelector('.popup__input.popup__i
 const submitEditProfileButton = formEdit.querySelector('.button.popup__button');
 const submitAddPlaceButton = formAddCard.querySelector('.button.popup__button');
 const submitChangeAvatarButton = changeAvatarForm.querySelector('.button.popup__button');
+
 let userId;
 
 const callbacks = {
   deleteCallback: deleteCard,
   likeCallback: toggleLikeCardState,
-  openImgCallbak: openImg
+  openImgCallbak: openImg,
+  addListenerCallbak: addListener
 };
 
 const configForm = {
@@ -66,6 +68,12 @@ Promise.all([fetchResponseMethodGet('users/me'), fetchResponseMethodGet('cards')
   .catch(([err1, err2]) => {
     console.log(err1 + err2);
   });
+
+function addListener(button) {
+  button.addEventListener('click', () => {
+    openPopup(submitPopup);
+  });
+}
 
 function openImg(sectionImg) {
   sectionImg.addEventListener('click', () => {         
