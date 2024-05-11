@@ -77,14 +77,19 @@ function addListenerToDeleteIcon(button, idCard , cardElement) {
   button.addEventListener('click', () => {
     cardId = idCard;
     card = cardElement;
-    console.log(card);
     openPopup(submitPopup);
   });
 }
 
 function deleteCard(cardElement, cardId, isValid) {
-  deleteCardInServer(cardId, isValid);
-  cardElement.remove();
+  deleteCardInServer(cardId, isValid)
+    .then(() => {
+      cardElement.remove();
+      closePopup(submitPopup);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 function openImg(sectionImg) {
@@ -193,8 +198,7 @@ editAvatarbutton.addEventListener('click', () => {
 submitButton.addEventListener('click', (evt) => {
   if (evt.target === submitButton) {
     const isValid = true;
-    deleteCard(card, cardId, isValid)
-    closePopup(submitPopup);
+    deleteCard(card, cardId, isValid);
   }
 })
 

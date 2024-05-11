@@ -23,7 +23,6 @@ function createCard(cardData, callbacks, userId) {
     deleteButtonIcon.classList.add('card__delete-button-hidden');
   } else {
     callbacks.addListenerCallbak(deleteButtonIcon, cardData['_id'], cardElement);
-    console.log(cardElement);
   }
 
   likeButton.addEventListener('click', () => {
@@ -35,12 +34,16 @@ function createCard(cardData, callbacks, userId) {
 }
 
 function toggleLikeCardState(element, cardId, cardElementLikeCounter) {
-  if (element.classList.toggle("card__like-button_is-active")) {
-    toggleLikeCardStateInServer(cardId, "PUT", cardElementLikeCounter);
-    cardElementLikeCounter.textContent = response.likes.length;
-  } else {
-    toggleLikeCardStateInServer(cardId, "DELETE", cardElementLikeCounter);
-  }
+  const condition = element.classList.contains("card__like-button_is-active") ? "DELETE" : "PUT";
+
+  toggleLikeCardStateInServer(cardId, condition, cardElementLikeCounter)
+    .then((response) => {
+      cardElementLikeCounter.textContent = response.likes.length;
+      element.classList.toggle("card__like-button_is-active");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 
