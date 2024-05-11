@@ -8,8 +8,8 @@ const configApi = {
   }
 }
 
-function fetchResponseMethodGet(configApi, patch) {
-    return fetch(`${configApi.baseUrl}${patch}`, {
+function fetchResponseMethodGet(configApi, path) {
+    return fetch(`${configApi.baseUrl}${path}`, {
       headers: configApi.headers
     })
   }
