@@ -1,8 +1,8 @@
 import './pages/index.css';
 import { setCloseModalHandlers, popups, openPopup, closePopup } from './components/modal.js';
-import { createCard, deleteCard, toggleLikeCardState } from './components/card.js';
+import { createCard, toggleLikeCardState } from './components/card.js';
 import { enableValidation, clearValidation } from './components/validation.js';
-import { fetchResponseMethodGet, updateProfileData, addNewCard, changeAvatar} from './components/api.js'
+import { fetchResponseMethodGet, updateProfileData, addNewCard, changeAvatar , deleteCardInServer} from './components/api.js'
 
 const placesList = document.querySelector('.places__list');
 const popupEdit = document.querySelector('.popup.popup_type_edit');
@@ -29,14 +29,18 @@ const changeAvatarInput = changeAvatarForm.querySelector('.popup__input.popup__i
 const submitEditProfileButton = formEdit.querySelector('.button.popup__button');
 const submitAddPlaceButton = formAddCard.querySelector('.button.popup__button');
 const submitChangeAvatarButton = changeAvatarForm.querySelector('.button.popup__button');
+const submitPopup = document.querySelector('.popup.popup_type_submit-delete');
+const submitButton = submitPopup.querySelector('.button.popup__button');
 
 let userId;
-
+let cardId;
+let card;
+console.log(card);
 const callbacks = {
   deleteCallback: deleteCard,
   likeCallback: toggleLikeCardState,
   openImgCallbak: openImg,
-  addListenerCallbak: addListener
+  addListenerCallbak: addListenerToDeleteIcon
 };
 
 const configForm = {
@@ -44,7 +48,7 @@ const configForm = {
   inputSelector: ".popup__input",
   submitButtonSelector: ".popup__button",
   inactiveButtonClass: "popup__button_inactive",
-  inputErrorClass: "popup__input_state_invalid",
+  inputErrorClass: "popup__input_state_invalid"
 };
 
 Promise.all([fetchResponseMethodGet('users/me'), fetchResponseMethodGet('cards')])
@@ -65,14 +69,22 @@ Promise.all([fetchResponseMethodGet('users/me'), fetchResponseMethodGet('cards')
       renderCard(card, 'append');
     })
   })
-  .catch(([err1, err2]) => {
-    console.log(err1 + err2);
+  .catch((err) => {
+    console.log(err);
   });
 
-function addListener(button) {
+function addListenerToDeleteIcon(button, idCard , cardElement) {
   button.addEventListener('click', () => {
+    cardId = idCard;
+    card = cardElement;
+    console.log(card);
     openPopup(submitPopup);
   });
+}
+
+function deleteCard(cardElement, cardId, isValid) {
+  deleteCardInServer(cardId, isValid);
+  cardElement.remove();
 }
 
 function openImg(sectionImg) {
@@ -176,6 +188,14 @@ editAvatarbutton.addEventListener('click', () => {
   changeAvatarInput.value = profileImage.style.backgroundImage.slice(5, -2);
   clearValidation(changeAvatarForm, configForm);
   openPopup(changeAvatarPopup);
+})
+
+submitButton.addEventListener('click', (evt) => {
+  if (evt.target === submitButton) {
+    const isValid = true;
+    deleteCard(card, cardId, isValid)
+    closePopup(submitPopup);
+  }
 })
 
 formEdit.addEventListener('submit', handleFormEditSubmit);
