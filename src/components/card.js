@@ -5,7 +5,7 @@ const cardTemplate = document.querySelector('#card-template').content;
 function createCard(cardData, callbacks, userId) {
   const cardElement = cardTemplate.querySelector('.places__item.card').cloneNode(true);
   const deleteButtonIcon = cardElement.querySelector('.card__delete-button');
-  const LikeButton = cardElement.querySelector('.card__like-button');
+  const likeButton = cardElement.querySelector('.card__like-button');
   const cardImage = cardElement.querySelector('.card__image');
   const cardElementLikeCounter = cardElement.querySelector('.card__like-counter');
   cardImage.src = cardData.link;
@@ -15,7 +15,7 @@ function createCard(cardData, callbacks, userId) {
 
   cardData.likes.forEach( (item) => {
     if(userId === item['_id']) {
-      LikeButton.classList.add('card__like-button_is-active');
+      likeButton.classList.add('card__like-button_is-active');
     }
   });
 
@@ -37,8 +37,8 @@ function createCard(cardData, callbacks, userId) {
     });
   }
 
-  LikeButton.addEventListener('click', () => {
-    callbacks.likeCallback(LikeButton, cardData['_id'], cardElementLikeCounter);
+  likeButton.addEventListener('click', () => {
+    callbacks.likeCallback(likeButton, cardData['_id'], cardElementLikeCounter);
   });
   callbacks.openImgCallbak(cardImage);
   return cardElement;
