@@ -1,6 +1,6 @@
 import './pages/index.css';
 import { setCloseModalHandlers, popups, openPopup, closePopup } from './components/modal.js';
-import { createCard, deleteCard, toggleLikeCardState } from './components/cards.js';
+import { createCard, deleteCard, toggleLikeCardState } from './components/card.js';
 import { enableValidation, clearValidation } from './components/validation.js';
 import { fetchResponseMethodGet, updateProfileData, addNewCard, changeAvatar} from './components/api.js'
 
