@@ -11,17 +11,22 @@ function hideError(inputElement, errorElement, config) {
 function checkInputValidity(inputElement, formElement, config) {
     const isInputValid = inputElement.validity.valid;
     const errorElement = formElement.querySelector(`#${inputElement.name}-error`);
+    const submitButtonElement = formElement.querySelector(config.submitButtonSelector);
+
     if (inputElement.validity.patternMismatch) {
         inputElement.setCustomValidity(inputElement.dataset.errorMessage);
     } else {
         inputElement.setCustomValidity("");
+        
     }
+
     if(isInputValid) {
-        hideError(inputElement, errorElement, config)
+        hideError(inputElement, errorElement, config);
     } else {
-        showError(inputElement, errorElement, config)
+        showError(inputElement, errorElement, config);
     }
-    
+
+    toggleButtonState(submitButtonElement, formElement.querySelectorAll(config.inputSelector), config);
 }
 
 const hasInvalidInput = (inputList) => {
@@ -50,6 +55,9 @@ function setEvenetListener(formElement, config) {
             toggleButtonState(submitButtonElement, inputList, config);
             checkInputValidity(inputElement, formElement, config);
         })
+        inputElement.addEventListener('keyup', function(){
+            checkInputValidity(inputElement, formElement, config);
+        });
     })
     formElement.addEventListener('submit', function(evt){
         evt.preventDefault();

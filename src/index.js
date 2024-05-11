@@ -35,7 +35,7 @@ const submitButton = submitPopup.querySelector('.button.popup__button');
 let userId;
 let cardId;
 let card;
-console.log(card);
+
 const callbacks = {
   deleteCallback: deleteCard,
   likeCallback: toggleLikeCardState,
