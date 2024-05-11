@@ -19,15 +19,6 @@ function createCard(cardData, callbacks, userId) {
     }
   });
 
-  function listener(evt) {
-    if (evt.target === submitButton) {
-      const isValid = true;
-      callbacks.deleteCallback(deleteButtonIcon, cardData['_id'], isValid);
-      submitButton.removeEventListener('click', listener);
-      closePopup(submitPopup);
-    }
-  }
-
   if (cardData.owner['_id'] !== userId) {
     deleteButtonIcon.classList.add('card__delete-button-hidden');
   } else {
