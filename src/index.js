@@ -90,11 +90,17 @@ function waitingSave(isLoading, FormSumbitButton) {
 function handleFormChangeAvatarSubmit(evt) {
   evt.preventDefault();
   waitingSave(true, submitChangeAvatarButton);
-  changeAvatar(changeAvatarInput.value, profileImage)
+  changeAvatar(changeAvatarInput.value)
+    .then((response) => {
+      profileImage.style.backgroundImage = `url('${response.avatar}')`;
+      closePopup(changeAvatarPopup);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
     .finally(() => {
       waitingSave(false, submitChangeAvatarButton);
-    })
-  closePopup(changeAvatarPopup);
+    });
 }
 
 function handleFormEditSubmit(evt) {
@@ -107,6 +113,7 @@ function handleFormEditSubmit(evt) {
     .then((response) => {
       profileTitle.textContent = response.name;
       profileDescription.textContent = response.about;
+      closePopup(popupEdit);
     })
     .catch((err) => {
       console.log(err);
@@ -114,7 +121,6 @@ function handleFormEditSubmit(evt) {
     .finally(() => {
       waitingSave(false, submitEditProfileButton);
     })
-  closePopup(popupEdit);
 }
 
 function handleFormAddPlaceSubmit(evt) {
@@ -126,6 +132,9 @@ function handleFormAddPlaceSubmit(evt) {
   })
     .then((response) => {
       renderCard(response)
+      closePopup(popupAddCard);
+      evt.target.reset();
+      clearValidation(formAddCard,configForm);
     })
     .catch((err) => {
       console.log(err);
@@ -133,9 +142,6 @@ function handleFormAddPlaceSubmit(evt) {
     .finally(() => {
       waitingSave(false, submitAddPlaceButton);
     })
-  closePopup(popupAddCard);
-  evt.target.reset();
-  clearValidation(formAddCard,configForm);
 }
 
 popups.forEach((item) => {
