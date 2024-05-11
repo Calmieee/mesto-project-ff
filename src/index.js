@@ -29,6 +29,7 @@ const changeAvatarInput = changeAvatarForm.querySelector('.popup__input.popup__i
 const submitEditProfileButton = formEdit.querySelector('.button.popup__button');
 const submitAddPlaceButton = formAddCard.querySelector('.button.popup__button');
 const submitChangeAvatarButton = changeAvatarForm.querySelector('.button.popup__button');
+let userId;
 
 const callbacks = {
   deleteCallback: deleteCard,
@@ -56,7 +57,8 @@ Promise.all([fetchResponseMethodGet('users/me'), fetchResponseMethodGet('cards')
     profileTitle.textContent = responseForUser.name;
     profileDescription.textContent = responseForUser.about;
     profileImage.style.backgroundImage = `url('${responseForUser.avatar}')`;
-    
+    userId = responseForUser['_id'];
+
     responseforInitCards.forEach((card) => {
       renderCard(card, 'append');
     })
@@ -75,7 +77,7 @@ function openImg(sectionImg) {
 }
 
 function renderCard(newCard, method = 'prepend') {
-  const result = createCard(newCard, callbacks);
+  const result = createCard(newCard, callbacks, userId);
   placesList[method](result);
 }
 

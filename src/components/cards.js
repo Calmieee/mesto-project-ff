@@ -1,11 +1,8 @@
 import { deleteCardInServer, toggleLikeCardStateInServer} from "./api.js";
-import { openPopup, closePopup} from "./modal.js";
 
 const cardTemplate = document.querySelector('#card-template').content;
-const myId = 'bd93af4bf4950e32576412f9';
-const submitPopup = document.querySelector('.popup.popup_type_submit-delete');
-const submitButton = submitPopup.querySelector('.button.popup__button');
-function createCard(cardData, callbacks) {
+
+function createCard(cardData, callbacks, userId) {
   const cardElement = cardTemplate.querySelector('.places__item.card').cloneNode(true);
   const deleteButtonIcon = cardElement.querySelector('.card__delete-button');
   const LikeButton = cardElement.querySelector('.card__like-button');
@@ -17,7 +14,7 @@ function createCard(cardData, callbacks) {
   cardElementLikeCounter.textContent = cardData.likes.length;
 
   cardData.likes.forEach( (item) => {
-    if(myId === item['_id']) {
+    if(userId === item['_id']) {
       LikeButton.classList.add('card__like-button_is-active');
     }
   });
@@ -31,7 +28,7 @@ function createCard(cardData, callbacks) {
     }
   }
 
-  if (cardData.owner['_id'] !== myId) {
+  if (cardData.owner['_id'] !== userId) {
     deleteButtonIcon.classList.add('card__delete-button-hidden');
   } else {
     deleteButtonIcon.addEventListener('click', () => {
