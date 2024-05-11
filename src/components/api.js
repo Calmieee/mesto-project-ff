@@ -60,9 +60,6 @@ function deleteCardInServer(cardId, isValid) {
       }
       return Promise.reject(`Ошибка: ${res.status}`);
     })
-    .catch((err) => {
-      console.log(err);
-    });
   }
   
 }
@@ -82,9 +79,6 @@ function toggleLikeCardStateInServer(cardId, method, cardElementLikeCounter) {
     console.log(response)
      cardElementLikeCounter.textContent = response.likes.length;
   })
-  .catch((err) => {
-    console.log(err);
-  });
 }
 function changeAvatar(link, ProfileAvatarElement) {
   return fetch(`${configApi.baseUrl}users/me/avatar`, {
@@ -104,9 +98,6 @@ function changeAvatar(link, ProfileAvatarElement) {
     console.log(response)
     ProfileAvatarElement.style.backgroundImage = `url('${response.avatar}')`;
   })
-  .catch((err) => {
-    console.log(err);
-  });
 }
 
 
