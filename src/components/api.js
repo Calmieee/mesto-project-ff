@@ -64,7 +64,7 @@ function deleteCardInServer(cardId, isValid) {
   
 }
 
-function toggleLikeCardStateInServer(cardId, method, cardElementLikeCounter) {
+function toggleLikeCardStateInServer(cardId, method) {
   return fetch(`${configApi.baseUrl}cards/likes/${cardId}`, {
     method: method,
     headers: configApi.headers
@@ -75,12 +75,9 @@ function toggleLikeCardStateInServer(cardId, method, cardElementLikeCounter) {
     }
     return Promise.reject(`Ошибка: ${res.status}`);
   })
-  .then((response) => {
-    console.log(response)
-     cardElementLikeCounter.textContent = response.likes.length;
-  })
 }
-function changeAvatar(link, ProfileAvatarElement) {
+
+function changeAvatar(link) {
   return fetch(`${configApi.baseUrl}users/me/avatar`, {
     method: 'PATCH',
     headers: configApi.headers,
@@ -93,10 +90,6 @@ function changeAvatar(link, ProfileAvatarElement) {
       return res.json()
     }
     return Promise.reject(`Ошибка: ${res.status}`);
-  })
-  .then((response) => {
-    console.log(response)
-    ProfileAvatarElement.style.backgroundImage = `url('${response.avatar}')`;
   })
 }
 
