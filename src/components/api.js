@@ -8,13 +8,13 @@ const configApi = {
   }
 }
 
-function fetchResponseMethodGet(configApi, path) {
+function fetchResponseMethodGet(path) {
     return fetch(`${configApi.baseUrl}${path}`, {
       headers: configApi.headers
     })
   }
 
-function updateProfileData(configApi, inputs) {
+function updateProfileData(inputs) {
   return fetch(`${configApi.baseUrl}users/me`, {
     method: 'PATCH',
     headers: configApi.headers,
@@ -31,7 +31,7 @@ function updateProfileData(configApi, inputs) {
   })
 }
 
-function addNewCard(configApi, inputs){
+function addNewCard(inputs){
   return fetch(`${configApi.baseUrl}cards`, {
     method: 'POST',
     headers: configApi.headers,
@@ -48,7 +48,7 @@ function addNewCard(configApi, inputs){
   })
 }
 
-function deleteCardInServer(configApi, cardId, isValid) {
+function deleteCardInServer(cardId, isValid) {
   if (isValid) {
     return fetch(`${configApi.baseUrl}cards/${cardId}`,{
       method: 'DELETE',
@@ -67,7 +67,7 @@ function deleteCardInServer(configApi, cardId, isValid) {
   
 }
 
-function toggleLikeCardStateInServer(configApi, cardId, method, cardElementLikeCounter) {
+function toggleLikeCardStateInServer(cardId, method, cardElementLikeCounter) {
   return fetch(`${configApi.baseUrl}cards/likes/${cardId}`, {
     method: method,
     headers: configApi.headers
@@ -86,7 +86,7 @@ function toggleLikeCardStateInServer(configApi, cardId, method, cardElementLikeC
     console.log(err);
   });
 }
-function changeAvatar(configApi, link, ProfileAvatarElement) {
+function changeAvatar(link, ProfileAvatarElement) {
   return fetch(`${configApi.baseUrl}users/me/avatar`, {
     method: 'PATCH',
     headers: configApi.headers,
@@ -110,4 +110,4 @@ function changeAvatar(configApi, link, ProfileAvatarElement) {
 }
 
 
-export {fetchResponseMethodGet, updateProfileData, addNewCard, deleteCardInServer, toggleLikeCardStateInServer, changeAvatar, configApi}
+export {fetchResponseMethodGet, updateProfileData, addNewCard, deleteCardInServer, toggleLikeCardStateInServer, changeAvatar}

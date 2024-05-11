@@ -1,5 +1,5 @@
-import { deleteCardInServer, toggleLikeCardStateInServer, configApi } from "./api.js";
-import { openPopup, closePopup } from "./modal.js";
+import { deleteCardInServer, toggleLikeCardStateInServer} from "./api.js";
+import { openPopup, closePopup} from "./modal.js";
 
 const cardTemplate = document.querySelector('#card-template').content;
 const myId = 'bd93af4bf4950e32576412f9';
@@ -48,16 +48,16 @@ function createCard(cardData, callbacks) {
 }
 
 function deleteCard(deleteButton, cardId, isValid) {
-  deleteCardInServer(configApi, cardId, isValid);
+  deleteCardInServer(cardId, isValid);
   const listItem = deleteButton.closest('.places__item.card');
   listItem.remove();
 }
 
 function toggleLikeCardState(element, cardId, cardElementLikeCounter) {
   if (element.classList.toggle("card__like-button_is-active")) {
-    toggleLikeCardStateInServer(configApi, cardId, "PUT", cardElementLikeCounter);
+    toggleLikeCardStateInServer(cardId, "PUT", cardElementLikeCounter);
   } else {
-    toggleLikeCardStateInServer(configApi, cardId, "DELETE", cardElementLikeCounter);
+    toggleLikeCardStateInServer(cardId, "DELETE", cardElementLikeCounter);
   }
 }
 

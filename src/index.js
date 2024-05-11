@@ -2,7 +2,7 @@ import './pages/index.css';
 import { setCloseModalHandlers, popups, openPopup, closePopup } from './components/modal.js';
 import { createCard, deleteCard, toggleLikeCardState } from './components/cards.js';
 import { enableValidation, clearValidation } from './components/validation.js';
-import { fetchResponseMethodGet, updateProfileData, addNewCard, changeAvatar, configApi } from './components/api.js'
+import { fetchResponseMethodGet, updateProfileData, addNewCard, changeAvatar} from './components/api.js'
 
 const placesList = document.querySelector('.places__list');
 const popupEdit = document.querySelector('.popup.popup_type_edit');
@@ -44,7 +44,7 @@ const configForm = {
   inputErrorClass: "popup__input_state_invalid",
 };
 
-Promise.all([fetchResponseMethodGet(configApi, 'users/me'), fetchResponseMethodGet(configApi, 'cards')])
+Promise.all([fetchResponseMethodGet('users/me'), fetchResponseMethodGet('cards')])
   .then(([res1,  res2]) => {
     if (res1.ok && res2.ok) {     
       return Promise.all([res1.json(), res2.json()]);
@@ -90,7 +90,7 @@ function waitingSave(isLoading, FormSumbitButton) {
 function handleFormChangeAvatarSubmit(evt) {
   evt.preventDefault();
   waitingSave(true, submitChangeAvatarButton);
-  changeAvatar(configApi, changeAvatarInput.value, profileImage)
+  changeAvatar(changeAvatarInput.value, profileImage)
     .finally(() => {
       waitingSave(false, submitChangeAvatarButton);
     })
@@ -100,7 +100,7 @@ function handleFormChangeAvatarSubmit(evt) {
 function handleFormEditSubmit(evt) {
   evt.preventDefault();
   waitingSave(true, submitEditProfileButton);
-  updateProfileData(configApi, {
+  updateProfileData({
     nameInput: nameInput.value,
     aboutInput: jobInput.value
   })
@@ -120,7 +120,7 @@ function handleFormEditSubmit(evt) {
 function handleFormAddPlaceSubmit(evt) {
   waitingSave(true, submitAddPlaceButton);
   evt.preventDefault();
-  addNewCard(configApi, {
+  addNewCard({
     namePlaceInput: nameInputPlace.value,
     linkInput:  linkInput.value
   })
